@@ -28,6 +28,8 @@ class ArticleRepository extends EntityRepository implements RepositoryInterface
             ':locale' => $locale
         ]);
 
+        $queryBuilder->orderBy('a.publishedAt', 'desc');
+
         $paginator = $this->getPaginator($queryBuilder);
 
         return $paginator;
