@@ -2,7 +2,7 @@
     "name": "webburza/sylius-article-bundle",
     "description": "Article bundle for Sylius e-commerce platform.",
     "type": "symfony-bundle",
-    "licence": "MIT",
+    "license": "MIT",
     "keywords": [
         "webburza",
         "web.burza",
