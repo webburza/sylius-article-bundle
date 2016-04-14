@@ -17,9 +17,6 @@
             "email": "yousef@burza.hr"
         }
     ],
-    "require": {
-        "sylius/core": "^0.16.0"
-    },
     "autoload": {
         "psr-4": { "Webburza\\Sylius\\ArticleBundle\\": "" }
     },
