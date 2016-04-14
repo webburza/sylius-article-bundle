@@ -1,0 +1,32 @@
+webburza:
+    sylius:
+        article:
+            backend:
+                articles: Članci
+            breadcrumb:
+                index: Članci
+            index_header: Članci
+            create_header: Novi članak
+            update_header: Uređivanje članka
+            show_header: Detalji članka
+            create: Novi članak
+            open: Otvori
+            no_results: Nije pronađen niti jedan članak.
+            translations: Prijevodi
+            general_info: Općenite informacije
+            back_to_all: natrag na sve članke
+            label:
+                id: '#ID'
+                title: Naslov
+                lead: Kratak opis
+                content: Sadržaj
+                active: Aktivno?
+                meta_keywords: Meta ključne riječi
+                meta_description: Meta opis
+                thumbnail: Minijatura
+                published_at: Datum objave
+                published: Objavljeno?
+                featured: Istaknuto?
+                created_at: Datum kreiranja
+                updated_at: Datum ažuriranja
+                file: Datoteka

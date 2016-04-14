@@ -1,0 +1,33 @@
+services:
+    webburza.sylius.article.listener.menu_builder:
+        class: Webburza\Sylius\ArticleBundle\EventListener\MenuBuilderListener
+        arguments: [@translator]
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu_builder.backend.main, method: addBackendMenuItems }
+            - { name: kernel.event_listener, event: sylius.menu_builder.backend.sidebar, method: addBackendMenuItems }
+
+    webburza.sylius.article.listener.published:
+        class: Webburza\Sylius\ArticleBundle\EventListener\PublishedListener
+        tags:
+            - { name: kernel.event_listener, event: webburza.article.pre_create, method: setPublishedAt }
+            - { name: kernel.event_listener, event: webburza.article.pre_update, method: setPublishedAt }
+
+    webburza.sylius.article.listener.image_upload:
+        class: Webburza\Sylius\ArticleBundle\EventListener\ImageUploadListener
+        arguments: [@sylius.image_uploader]
+        tags:
+            - { name: kernel.event_listener, event: webburza.article.pre_create, method: uploadArticleImage }
+            - { name: kernel.event_listener, event: webburza.article.pre_update, method: uploadArticleImage }
+
+    webburza.sylius.article.form.type.article_image:
+        class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleImageType
+        tags:
+            - { name: form.type, alias: webburza_article_image }
+        arguments: [Webburza\Sylius\ArticleBundle\Entity\ArticleImage]
+
+    webburza.sylius.article.twig.route_exists_extension:
+        class: Webburza\Sylius\ArticleBundle\Twig\RouteExistsExtension
+        public: false
+        arguments: [@router]
+        tags:
+            - { name: twig.extension }

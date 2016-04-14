@@ -1,0 +1,11 @@
+before_script:
+    - composer install --no-interaction --prefer-dist --no-scripts
+
+build:
+    script:
+        - composer validate
+        - vendor/bin/phpunit
+    cache:
+        paths:
+            - bin
+            - vendor

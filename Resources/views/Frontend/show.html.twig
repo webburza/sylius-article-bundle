@@ -1,0 +1,21 @@
+{% extends 'SyliusWebBundle:Frontend:layout.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    <div class="Page">
+        <div class="row">
+            <div class="small-16 medium-14 large-12 xlarge-10 xxlarge-8 medium-centered columns">
+                <div class="Article">
+                    <a href="{{ path('webburza_article_frontend_index') }}">{{ 'webburza.sylius.article.back_to_all' | trans }}</a>
+
+                    <h1 class="Article-title">{{ article.title }}</h1>
+
+                    <div class="Article-content">
+                        {{ article.content|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

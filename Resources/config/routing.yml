@@ -1,0 +1,37 @@
+# ------------------------------------------------------------------------------
+#  BACKEND
+# ------------------------------------------------------------------------------
+
+webburza_article:
+    resource: |
+        alias: webburza.article
+        templates: WebburzaSyliusArticleBundle:Backend
+        except: ['index']
+    type: sylius.resource
+    prefix: /administration
+
+webburza_article_index:
+    path: /administration/articles/
+    methods: [GET]
+    defaults:
+        _controller: webburza.controller.article:indexAction
+        _sylius:
+            template: WebburzaSyliusArticleBundle:Backend:index.html.twig
+            sortable: true
+            paginate: 10
+            sorting:
+                published: asc
+                publishedAt: desc
+                createdAt: desc
+
+webburza_article_frontend_index:
+    path: /articles/
+    methods: [GET]
+    defaults:
+        _controller: webburza.controller.article:indexFrontAction
+
+webburza_article_frontend_show:
+    path: /articles/{slug}/
+    methods: [GET]
+    defaults:
+        _controller: webburza.controller.article:showFrontAction

@@ -1,0 +1,32 @@
+webburza:
+    sylius:
+        article:
+            backend:
+                articles: Articles
+            breadcrumb:
+                index: Articles
+            index_header: Articles
+            create_header: New article
+            update_header: Editing article
+            show_header: Article details
+            create: Create article
+            open: Open
+            no_results: No articles found.
+            translations: Translations
+            general_info: General info
+            back_to_all: back to all articles
+            label:
+                id: '#ID'
+                title: Title
+                lead: Lead
+                content: Content
+                active: Active?
+                meta_keywords: Meta Keywords
+                meta_description: Meta Description
+                thumbnail: Thumbnail
+                published_at: Published At
+                published: Published?
+                featured: Featured?
+                created_at: Created At
+                updated_at: Updated At
+                file: File

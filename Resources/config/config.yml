@@ -1,0 +1,27 @@
+sylius_resource:
+    resources:
+        webburza.article:
+            classes:
+                controller: Webburza\Sylius\ArticleBundle\Controller\ArticleController
+                repository: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleRepository
+                model: Webburza\Sylius\ArticleBundle\Entity\Article
+                form:
+                    default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleType
+            translation:
+                classes:
+                    model: Webburza\Sylius\ArticleBundle\Entity\ArticleTranslation
+                    form:
+                        default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleTranslationType
+
+sylius_rbac:
+    permissions:
+        webburza.manage.article: Manage articles
+        webburza.article.show: Show article
+        webburza.article.index: List articles
+        webburza.article.create: Create article
+        webburza.article.update: Edit article
+        webburza.article.delete: Delete article
+
+    permissions_hierarchy:
+        webburza.manage.article: [webburza.article.show, webburza.article.index, webburza.article.create, webburza.article.update, webburza.article.delete]
+        sylius.content: [webburza.manage.article]
