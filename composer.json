@@ -18,8 +18,7 @@
         }
     ],
     "require": {
-        "sylius/core": "^0.16.0",
-        "jocelynkerbourch/kc-finder-bundle": "dev-master"
+        "sylius/core": "^0.16.0"
     },
     "autoload": {
         "psr-4": { "Webburza\\Sylius\\ArticleBundle\\": "" }
