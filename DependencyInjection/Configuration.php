@@ -18,7 +18,18 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('webburza_articles');
+        $rootNode = $treeBuilder->root('webburza_sylius_article');
+
+        $rootNode
+            ->children()
+                ->arrayNode('file_browser')
+                    ->children()
+                        ->booleanNode('enabled')->end()
+                        ->scalarNode('browse_url')->end()
+                        ->scalarNode('upload_url')->end()
+                    ->end()
+                ->end()
+            ->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

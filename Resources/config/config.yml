@@ -25,3 +25,9 @@ sylius_rbac:
     permissions_hierarchy:
         webburza.manage.article: [webburza.article.show, webburza.article.index, webburza.article.create, webburza.article.update, webburza.article.delete]
         sylius.content: [webburza.manage.article]
+
+webburza_sylius_article:
+    file_browser:
+        enabled: false
+        browse_url: ""
+        upload_url: ""
