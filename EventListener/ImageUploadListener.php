@@ -4,6 +4,7 @@ namespace Webburza\Sylius\ArticleBundle\EventListener;
 use Sylius\Component\Core\Uploader\ImageUploaderInterface;
 use Sylius\Component\Resource\Exception\UnexpectedTypeException;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Webburza\Sylius\ArticleBundle\Entity\Article;
 
 class ImageUploadListener
@@ -25,6 +26,10 @@ class ImageUploadListener
         }
 
         if ($subject->getImage()->hasFile()) {
+            if (!$subject->getImage()->getFile()->isValid()) {
+                throw new HttpException(400, 'File is not valid.');
+            }
+
             $this->uploader->upload($subject->getImage());
         }
         else {
