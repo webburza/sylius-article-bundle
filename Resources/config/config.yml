@@ -12,3 +12,14 @@ sylius_resource:
                     model: Webburza\Sylius\ArticleBundle\Entity\ArticleTranslation
                     form:
                         default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleTranslationType
+
+        webburza.article_category:
+            classes:
+                model: Webburza\Sylius\ArticleBundle\Entity\ArticleCategory
+                form:
+                    default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryType
+            translation:
+                classes:
+                    model: Webburza\Sylius\ArticleBundle\Entity\ArticleCategoryTranslation
+                    form:
+                        default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryTranslationType

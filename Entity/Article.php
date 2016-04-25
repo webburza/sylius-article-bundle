@@ -78,6 +78,13 @@ class Article extends AbstractTranslatable implements ResourceInterface
     protected $image;
 
     /**
+     * @var ArticleCategory
+     * @ORM\ManyToOne(targetEntity="ArticleCategory", inversedBy="articles")
+     * @Assert\NotBlank()
+     */
+    protected $category;
+
+    /**
      * @return int
      */
     public function getId()
@@ -258,5 +265,24 @@ class Article extends AbstractTranslatable implements ResourceInterface
     public function getMetaDescription()
     {
         return $this->translate()->getMetaDescription();
+    }
+
+    /**
+     * @return ArticleCategory[]
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param ArticleCategory[] $category
+     * @return Article
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

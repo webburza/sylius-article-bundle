@@ -2,10 +2,28 @@
 #  BACKEND
 # ------------------------------------------------------------------------------
 
+webburza_article_category:
+    resource: |
+        alias: webburza.article_category
+        templates: WebburzaSyliusArticleBundle:Backend/Category
+        except: ['index']
+    type: sylius.resource
+    prefix: /administration
+
+webburza_article_category_index:
+    path: /administration/article-categories/
+    methods: [GET]
+    defaults:
+        _controller: webburza.controller.article_category:indexAction
+        _sylius:
+            template: WebburzaSyliusArticleBundle:Backend/Category:index.html.twig
+            sortable: true
+            paginate: 10
+
 webburza_article:
     resource: |
         alias: webburza.article
-        templates: WebburzaSyliusArticleBundle:Backend
+        templates: WebburzaSyliusArticleBundle:Backend/Article
         except: ['index']
     type: sylius.resource
     prefix: /administration
@@ -16,13 +34,17 @@ webburza_article_index:
     defaults:
         _controller: webburza.controller.article:indexAction
         _sylius:
-            template: WebburzaSyliusArticleBundle:Backend:index.html.twig
+            template: WebburzaSyliusArticleBundle:Backend/Article:index.html.twig
             sortable: true
             paginate: 10
             sorting:
                 published: asc
                 publishedAt: desc
                 createdAt: desc
+
+# ------------------------------------------------------------------------------
+#  FRONTEND
+# ------------------------------------------------------------------------------
 
 webburza_article_frontend_index:
     path: /articles/
@@ -35,3 +57,9 @@ webburza_article_frontend_show:
     methods: [GET]
     defaults:
         _controller: webburza.controller.article:showFrontAction
+
+webburza_article_category_frontend_show:
+    path: /article-categories/{slug}/
+    methods: [GET]
+    defaults:
+        _controller: webburza.controller.article_category:showFrontAction

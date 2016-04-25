@@ -74,6 +74,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td><strong>{{ 'webburza.sylius.article.label.category'|trans }}</strong></td>
+                    <td><a href="{{ path('webburza_article_category_show', {id: article.category.id}) }}">{{ article.category.title }}</a></td>
+                </tr>
+                <tr>
                     <td><strong>{{ 'webburza.sylius.article.label.published_at'|trans }}</strong></td>
                     <td>
                         {% if (article.published and article.publishedAt) %}

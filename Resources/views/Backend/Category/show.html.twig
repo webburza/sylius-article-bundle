@@ -1,0 +1,75 @@
+{% extends 'SyliusWebBundle:Backend:layout.html.twig' %}
+
+{% import 'SyliusResourceBundle:Macros:buttons.html.twig' as buttons %}
+{% import 'SyliusWebBundle:Backend/Macros:alerts.html.twig' as alerts %}
+{% import 'SyliusWebBundle:Backend/Macros:misc.html.twig' as misc %}
+
+{% block topbar %}
+    <ol class="breadcrumb">
+        <li>{{ 'sylius.breadcrumb.content'|trans }}</li>
+        <li><a href="{{ path('webburza_article_category_index') }}">{{ 'webburza.sylius.article_category.breadcrumb.index'|trans }}</a></li>
+        <li>{{ article_category.title }}</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <div class="actions-menu">
+            {% if article_category.published %}
+                {{ buttons.generic(path('webburza_article_category_frontend_show', {'slug': article_category.slug}), 'webburza.sylius.article_category.open' | trans, 'share') }}
+            {% endif %}
+
+            {{ buttons.edit(path('webburza_article_category_update', {'id': article_category.id})) }}
+            {{ buttons.delete(path('webburza_article_category_delete', {'id': article_category.id}), null, false, true) }}
+        </div>
+        <h1>
+            <i class="glyphicon glyphicon-info-sign"></i> {{ 'webburza.sylius.article_category.show_header' | trans }}
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="2">{{ 'webburza.sylius.article_category.general_info'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>{{ 'webburza.sylius.article_category.label.id'|trans }}</strong></td>
+                    <td>{{ article_category.id }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'webburza.sylius.article_category.label.title'|trans }}</strong></td>
+                    <td>{{ article_category.title }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'webburza.sylius.article_category.label.published'|trans }}</strong></td>
+                    <td>
+                        {% if article_category.published %}
+                            <span class="glyphicon glyphicon-ok"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-remove"></span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'webburza.sylius.article_category.label.created_at' | trans }}</strong></td>
+                    <td>{{ article_category.createdAt | date }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'webburza.sylius.article_category.label.updated_at' | trans }}</strong></td>
+                    <td>
+                        {% if (article_category.updatedAt) %}
+                            {{ article_category.updatedAt | date }}
+                        {% else %}
+                            &mdash;
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
