@@ -4,6 +4,18 @@
 
 {% block content %}
     <div class="Page">
+        <div class="row">
+            <h3>Categories</h3>
+
+            {% for category in categories %}
+                <p>
+                    <a href="{{ path('webburza_article_category_frontend_show', {slug: category.slug}) }}">
+                        {{ category.title }}
+                    </a>
+                </p>
+            {% endfor %}
+        </div>
+
         {% for article in articles %}
             <div class="row product">
                 <div class="col-md-3">

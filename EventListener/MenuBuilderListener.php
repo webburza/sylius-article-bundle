@@ -28,5 +28,11 @@ class MenuBuilderListener
             ))
             ->setLabel($this->translator->trans('webburza.sylius.article.backend.articles'));
 
+        $menu['content']
+            ->addChild('webburza_sylius_article_categories', array(
+                'route'           => 'webburza_article_category_index',
+                'labelAttributes' => array('icon' => 'glyphicon glyphicon-tags'),
+            ))
+            ->setLabel($this->translator->trans('webburza.sylius.article_category.backend.article_categories'));
     }
 }

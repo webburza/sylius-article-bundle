@@ -16,7 +16,7 @@
     <div class="page-header">
         <div class="actions-menu">
             {% if article.published %}
-                {{ buttons.generic(path('webburza_article_frontend_show', {'slug': article.slug, 'id': article.id}), 'webburza.sylius.article.open' | trans, 'share') }}
+                {{ buttons.generic(path('webburza_article_frontend_show', {'slug': article.slug}), 'webburza.sylius.article.open' | trans, 'share') }}
             {% endif %}
 
             {{ buttons.edit(path('webburza_article_update', {'id': article.id})) }}
@@ -68,6 +68,16 @@
                     <td>
                         {% if article.image %}
                         <img src="{{ article.image.path | imagine_filter('sylius_medium') }}" alt="" class="img-rounded">
+                        {% else %}
+                            &mdash;
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'webburza.sylius.article.label.category'|trans }}</strong></td>
+                    <td>
+                        {% if article.category %}
+                            <a href="{{ path('webburza_article_category_show', {id: article.category.id}) }}">{{ article.category.title }}</a>
                         {% else %}
                             &mdash;
                         {% endif %}
