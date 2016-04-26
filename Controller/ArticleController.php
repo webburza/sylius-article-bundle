@@ -80,6 +80,12 @@ class ArticleController extends ResourceController
             'published' => true
         ]);
 
+        // Get related articles
+        $relatedArticles =
+            $this
+                ->get('webburza.repository.article')
+                ->getRelatedArticles($article, $locale);
+
         // Create the view
         $view = View::create();
 
@@ -87,7 +93,8 @@ class ArticleController extends ResourceController
         $view->setTemplate('WebburzaSyliusArticleBundle:Frontend/Article:show.html.twig');
         $view->setData(array(
             'article' => $article,
-            'categories' => $categories
+            'categories' => $categories,
+            'related_articles' => $relatedArticles
         ));
 
         // Handle view
