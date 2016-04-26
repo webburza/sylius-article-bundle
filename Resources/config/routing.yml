@@ -47,19 +47,19 @@ webburza_article_index:
 # ------------------------------------------------------------------------------
 
 webburza_article_frontend_index:
-    path: /articles/
+    path: /%webburza.sylius.article_bundle.article_slug%/
     methods: [GET]
     defaults:
         _controller: webburza.controller.article:indexFrontAction
 
 webburza_article_frontend_show:
-    path: /articles/{slug}/
+    path: /%webburza.sylius.article_bundle.article_slug%/{slug}/
     methods: [GET]
     defaults:
         _controller: webburza.controller.article:showFrontAction
 
 webburza_article_category_frontend_show:
-    path: /article-categories/{slug}/
+    path: /%webburza.sylius.article_bundle.article_slug%/category/{slug}/
     methods: [GET]
     defaults:
         _controller: webburza.controller.article_category:showFrontAction

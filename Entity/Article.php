@@ -80,7 +80,6 @@ class Article extends AbstractTranslatable implements ResourceInterface
     /**
      * @var ArticleCategory
      * @ORM\ManyToOne(targetEntity="ArticleCategory", inversedBy="articles")
-     * @Assert\NotBlank()
      */
     protected $category;
 

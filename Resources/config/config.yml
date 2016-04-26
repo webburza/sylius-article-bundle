@@ -1,3 +1,6 @@
+imports:
+    - { resource: parameters.yml }
+
 sylius_resource:
     resources:
         webburza.article:
@@ -15,6 +18,8 @@ sylius_resource:
 
         webburza.article_category:
             classes:
+                controller: Webburza\Sylius\ArticleBundle\Controller\ArticleCategoryController
+                repository: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleCategoryRepository
                 model: Webburza\Sylius\ArticleBundle\Entity\ArticleCategory
                 form:
                     default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryType
