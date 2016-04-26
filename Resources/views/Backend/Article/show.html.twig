@@ -64,7 +64,7 @@
                     <td>{{ article.metaDescription }}</td>
                 </tr>
                 <tr>
-                    <td><strong>{{ 'webburza.sylius.article.label.thumbnail'|trans }}</strong></td>
+                    <td><strong>{{ 'webburza.sylius.article.label.cover_image'|trans }}</strong></td>
                     <td>
                         {% if article.image %}
                         <img src="{{ article.image.path | imagine_filter('sylius_medium') }}" alt="" class="img-rounded">

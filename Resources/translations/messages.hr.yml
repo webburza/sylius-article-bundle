@@ -23,7 +23,7 @@ webburza:
                 active: Aktivno?
                 meta_keywords: Meta ključne riječi
                 meta_description: Meta opis
-                thumbnail: Minijatura
+                cover_image: Noseća slika
                 published_at: Datum objave
                 published: Objavljeno?
                 featured: Istaknuto?

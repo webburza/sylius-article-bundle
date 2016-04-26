@@ -22,7 +22,7 @@ class ArticleType extends AbstractResourceType
         ]);
 
         $builder->add('image', 'webburza_article_image', [
-            'label' => 'webburza.sylius.article.label.thumbnail'
+            'label' => 'webburza.sylius.article.label.cover_image'
         ]);
 
         $builder->add('category', 'webburza_article_category_choice', [

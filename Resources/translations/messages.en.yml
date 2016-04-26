@@ -23,7 +23,7 @@ webburza:
                 active: Active?
                 meta_keywords: Meta Keywords
                 meta_description: Meta Description
-                thumbnail: Thumbnail
+                cover_image: Cover Image
                 published_at: Published At
                 published: Published?
                 featured: Featured?
