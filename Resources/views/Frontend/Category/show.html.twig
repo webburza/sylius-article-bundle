@@ -1,33 +1,49 @@
 {% extends 'SyliusWebBundle:Frontend:layout.html.twig' %}
 
+{% from 'WebburzaSyliusArticleBundle:Frontend/Article:macros.html.twig' import list %}
+
 {% block title %}{{ category.title }}{% endblock %}
 
 {% block content %}
-    <div class="Page">
-        <div class="row">
-            <h3>Categories</h3>
+<div class="page-header">
+    <a href="{{ path('webburza_article_frontend_index') }}">{{ 'webburza.sylius.article.breadcrumb.index' | trans }}</a>
 
-            {% for category in categories %}
-                <p>
-                    <a href="{{ path('webburza_article_category_frontend_show', {slug: category.slug}) }}">
-                        {{ category.title }}
-                    </a>
-                </p>
-            {% endfor %}
-        </div>
+    <h1 class="page-title">{{ category.title }}</h1>
+</div>
 
-        <div class="row">
-            <div class="small-16 medium-14 large-12 xlarge-10 xxlarge-8 medium-centered columns">
-                <div class="Article">
-                    <a href="{{ path('webburza_article_frontend_index') }}">{{ 'webburza.sylius.article.back_to_all' | trans }}</a>
+{% if articles.haveToPaginate() %}
+    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
+{% endif %}
 
-                    <h1 class="Article-title">{{ category.title }}</h1>
-
-                    {% for article in articles %}
-                        <p><strong>{{ article.title }}</strong></p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-9">
+        {{ list(articles) }}
     </div>
+
+{% if categories is not empty %}
+    <div class="col-md-3">
+        <ul class="nav">
+            <li class="first">
+                <span class="nav-header">
+                    <span>{{ 'webburza.sylius.article_category.index_header' | trans }}</span>
+                </span>
+
+                <ul class="nav nav-list menu_level_1">
+                    {% for category in categories %}
+                        <li class="first">
+                            <a href="{{ path('webburza_article_category_frontend_show', {slug: category.slug}) }}">
+                                <i class="icon-angle-right"></i> <span>{{ category.title }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+{% endif %}
+</div>
+
+{% if articles.haveToPaginate() %}
+    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
+{% endif %}
 {% endblock %}

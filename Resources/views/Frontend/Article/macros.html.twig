@@ -1,0 +1,28 @@
+{% macro list(articles) %}
+{% for article in articles %}
+<div class="row">
+    <div class="col-md-3">
+        <a href="{{ path('webburza_article_frontend_show', {slug: article.slug}) }}" class="thumbnail">
+            <img src="{{ article.image ? article.image.path|imagine_filter('sylius_medium') : 'http://placehold.it/200x200' }}" alt="{{ article.title }}">
+        </a>
+    </div>
+
+    <div class="col-md-9">
+        <a href="{{ path('webburza_article_frontend_show', {slug: article.slug}) }}">
+            <h2>{{ article.title }}</h2>
+        </a>
+
+        <span>{{ article.publishedAt|date }}</span>
+
+    {% if article.lead %}
+        <hr>
+
+        <p>{{ article.lead }}</p>
+    {% endif %}
+    </div>
+</div>
+{% if not loop.last %}<hr>{% endif %}
+{% else %}
+{{ alerts.info('webburza.sylius.article.no_results'|trans) }}
+{% endfor %}
+{% endmacro %}

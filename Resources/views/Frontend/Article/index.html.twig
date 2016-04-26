@@ -1,37 +1,47 @@
 {% extends 'SyliusWebBundle:Frontend:layout.html.twig' %}
 
-{% block title %}{{ 'webburza.sylius.article.articles' | trans }}{% endblock %}
+{% from 'WebburzaSyliusArticleBundle:Frontend/Article:macros.html.twig' import list %}
+
+{% block title %}{{ 'webburza.sylius.article.index_header' | trans }}{% endblock %}
 
 {% block content %}
-    <div class="Page">
-        <div class="row">
-            <h3>Categories</h3>
+<div class="page-header">
+    <h1 class="page-title">{{ 'webburza.sylius.article.index_header' | trans }}</h1>
+</div>
 
-            {% for category in categories %}
-                <p>
-                    <a href="{{ path('webburza_article_category_frontend_show', {slug: category.slug}) }}">
-                        {{ category.title }}
-                    </a>
-                </p>
-            {% endfor %}
-        </div>
+{% if articles.haveToPaginate() %}
+    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
+{% endif %}
 
-        {% for article in articles %}
-            <div class="row product">
-                <div class="col-md-3">
-                    <a href="{{ path('webburza_article_frontend_show', {slug: article.slug}) }}" class="thumbnail">
-                        <img src="{{ article.image ? article.image.path|imagine_filter('sylius_medium') : 'http://placehold.it/200x200' }}" alt="{{ article.title }}" />
-                    </a>
-                </div>
-                <div class="col-md-9">
-                    <a href="{{ path('webburza_article_frontend_show', {slug: article.slug}) }}" class="btn btn-link"><h3>{{ article.title }}</h3></a>
-                    <p>{{ article.lead }}</p>
-                </div>
-            </div>
-        {% endfor %}
-
-        {% if articles.haveToPaginate() %}
-            {{ pagerfanta(articles) }}
-        {% endif %}
+<div class="row">
+    <div class="col-md-9">
+        {{ list(articles) }}
     </div>
+
+{% if categories is not empty %}
+    <div class="col-md-3">
+        <ul class="nav">
+            <li class="first">
+                <span class="nav-header">
+                    <span>{{ 'webburza.sylius.article_category.index_header' | trans }}</span>
+                </span>
+
+                <ul class="nav nav-list menu_level_1">
+                    {% for category in categories %}
+                    <li class="first">
+                        <a href="{{ path('webburza_article_category_frontend_show', {slug: category.slug}) }}">
+                            <i class="icon-angle-right"></i> <span>{{ category.title }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+{% endif %}
+</div>
+
+{% if articles.haveToPaginate() %}
+    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
+{% endif %}
 {% endblock %}
