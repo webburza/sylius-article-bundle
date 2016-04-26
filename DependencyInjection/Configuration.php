@@ -22,9 +22,9 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('slug')->end()
                 ->arrayNode('file_browser')
                     ->children()
-                        ->booleanNode('enabled')->end()
                         ->scalarNode('browse_url')->end()
                         ->scalarNode('upload_url')->end()
                     ->end()

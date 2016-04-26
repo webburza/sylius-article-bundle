@@ -30,10 +30,3 @@ services:
         tags:
             - { name: form.type, alias: webburza_article_category_choice }
         arguments: [@webburza.repository.article_category]
-
-    webburza.sylius.article.twig.route_exists_extension:
-        class: Webburza\Sylius\ArticleBundle\Twig\RouteExistsExtension
-        public: false
-        arguments: [@router]
-        tags:
-            - { name: twig.extension }

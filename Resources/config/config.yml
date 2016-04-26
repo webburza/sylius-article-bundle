@@ -1,6 +1,3 @@
-imports:
-    - { resource: parameters.yml }
-
 sylius_resource:
     resources:
         webburza.article:
@@ -30,7 +27,7 @@ sylius_resource:
                         default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryTranslationType
 
 webburza_sylius_article:
+    slug: articles
     file_browser:
-        enabled: false
         browse_url: ""
         upload_url: ""

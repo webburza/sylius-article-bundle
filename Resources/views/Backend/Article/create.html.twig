@@ -28,12 +28,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="//cdn.ckeditor.com/4.5.0/standard/ckeditor.js"></script>
-    {% if route_exists('KCFinder_browse') %}
+    {% if app.request.get('browse_url') and app.request.get('upload_url') %}
         <script>
             $('textarea.ckeditor').each(function() {
                 CKEDITOR.replace($(this).attr('id'), {
-                    filebrowserBrowseUrl: "{{ path('KCFinder_browse') }}",
-                    filebrowserUploadUrl: "{{ path('KCFinder_upload') }}"
+                    filebrowserBrowseUrl: "{{ app.request.get('browse_url') }}",
+                    filebrowserUploadUrl: "{{ app.request.get('upload_url') }}"
                 });
             })
         </script>
