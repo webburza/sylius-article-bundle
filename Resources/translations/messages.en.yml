@@ -15,6 +15,7 @@ webburza:
             translations: Translations
             general_info: General info
             back_to_all: back to all articles
+            delete_image: Delete image
             label:
                 id: '#ID'
                 title: Title

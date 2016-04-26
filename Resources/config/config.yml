@@ -26,6 +26,10 @@ sylius_resource:
                     form:
                         default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryTranslationType
 
+        webburza.article_image:
+            classes:
+                model: Webburza\Sylius\ArticleBundle\Entity\ArticleImage
+
 webburza_sylius_article:
     slug: articles
     file_browser:

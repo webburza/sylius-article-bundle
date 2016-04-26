@@ -15,6 +15,7 @@ webburza:
             translations: Prijevodi
             general_info: Općenite informacije
             back_to_all: natrag na sve članke
+            delete_image: Izbriši sliku
             label:
                 id: '#ID'
                 title: Naslov

@@ -103,7 +103,8 @@ class InstallCommand extends ContainerAwareCommand
             'webburza.article.index' => 'List articles',
             'webburza.article.create' => 'Create article',
             'webburza.article.update' => 'Update article',
-            'webburza.article.delete' => 'Delete article'
+            'webburza.article.delete' => 'Delete article',
+            'webburza.article_image.delete' => 'Delete article image'
         ];
 
         // Create each permission

@@ -45,6 +45,16 @@ webburza_article_index:
                 publishedAt: desc
                 createdAt: desc
 
+webburza_article_image_delete:
+    path: /administration/article-image/{id}
+    methods: [DELETE]
+    defaults:
+        _controller: webburza.controller.article_image:deleteAction
+        _sylius:
+            redirect:
+                route: webburza_article_show
+                parameters: { id: $articleId }
+
 # ------------------------------------------------------------------------------
 #  FRONTEND
 # ------------------------------------------------------------------------------
