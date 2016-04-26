@@ -127,7 +127,3 @@ For more information, see http://docs.ckeditor.com/#!/guide/dev_file_browse_uplo
 ## License
 
 This bundle is available under the [MIT license](LICENSE).
-
-## Contributing
-
-TODO
