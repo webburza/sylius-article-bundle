@@ -84,7 +84,7 @@ class ArticleController extends ResourceController
         $relatedArticles =
             $this
                 ->get('webburza.repository.article')
-                ->getRelatedArticles($article, $locale);
+                ->getRelatedArticles($article, $locale, 3);
 
         // Create the view
         $view = View::create();
