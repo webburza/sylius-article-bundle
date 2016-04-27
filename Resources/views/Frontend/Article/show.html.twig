@@ -2,7 +2,12 @@
 
 {% import 'WebburzaSyliusArticleBundle:Frontend/Article:macros.html.twig' as macro %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block head %}
+    <meta charset="UTF-8">
+    <title>{{ article.title }}</title>
+    <meta name="description" content="{{ article.metaDescription }}">
+    <meta name="keywords" content="{{ article.metaKeywords }}">
+{% endblock %}
 
 {% block content %}
 <div class="page-header">
