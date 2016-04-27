@@ -78,7 +78,7 @@ or as a source of latest news, you can replace all mentions of articles with
 that of blog, news, or something else completely.
 
 To get started, check the bundle's main language file in:
-[Resources/translations/messages.en.yml](https://github.com/webburza/sylius-article-bundle/Resources/translations/messages.en.yml)
+[Resources/translations/messages.en.yml](Resources/translations/messages.en.yml)
 
 ### File repository integration in rich-text editors
 
