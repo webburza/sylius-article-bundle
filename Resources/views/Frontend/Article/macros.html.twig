@@ -1,4 +1,6 @@
 {% macro list(articles) %}
+{% import 'SyliusWebBundle:Backend/Macros:alerts.html.twig' as alerts %}
+
 {% for article in articles %}
 <div class="row">
     <div class="col-md-3">
