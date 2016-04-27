@@ -26,3 +26,25 @@
 {{ alerts.info('webburza.sylius.article.no_results'|trans) }}
 {% endfor %}
 {% endmacro %}
+
+{% macro articleSidebar(categories, currentID, articleView) %}
+<div class="col-md-3{{ articleView ? ' col-md-offset-2' : '' }}">
+    <ul class="nav">
+        <li class="first">
+            <span class="nav-header">
+                <span>{{ 'webburza.sylius.article_category.index_header' | trans }}</span>
+            </span>
+
+            <ul class="nav nav-pills nav-stacked menu_level_1">
+                {% for category in categories %}
+                <li class="nav-item{{ loop.first ? ' first' : loop.last ? ' last' : '' }}{{ currentID == category.id ? ' active' : '' }}">
+                    <a href="{{ path('webburza_article_category_frontend_show', {slug: category.slug}) }}">
+                        <i class="icon-angle-right"></i> <span>{{ category.title }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</div>
+{% endmacro %}
