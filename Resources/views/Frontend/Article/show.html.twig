@@ -1,5 +1,7 @@
 {% extends 'SyliusWebBundle:Frontend:layout.html.twig' %}
 
+{% import 'WebburzaSyliusArticleBundle:Frontend/Article:macros.html.twig' as macro %}
+
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
@@ -23,25 +25,7 @@
     </div>
 
 {% if categories is not empty %}
-    <div class="col-md-3">
-        <ul class="nav">
-            <li class="first">
-            <span class="nav-header">
-                <span>{{ 'webburza.sylius.article_category.index_header' | trans }}</span>
-            </span>
-
-                <ul class="nav nav-list menu_level_1">
-                    {% for category in categories %}
-                        <li class="first">
-                            <a href="{{ path('webburza_article_category_frontend_show', {slug: category.slug}) }}">
-                                <i class="icon-angle-right"></i> <span>{{ category.title }}</span>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </li>
-        </ul>
-    </div>
+    {{ macro.articleSidebar(categories, article.category.id, true) }}
 {% endif %}
 </div>
 {% endblock %}
