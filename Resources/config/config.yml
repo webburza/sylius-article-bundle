@@ -31,7 +31,6 @@ sylius_resource:
                 model: Webburza\Sylius\ArticleBundle\Entity\ArticleImage
 
 webburza_sylius_article:
-    slug: articles
     file_browser:
         browse_url: ""
         upload_url: ""

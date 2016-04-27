@@ -22,7 +22,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('slug')->end()
                 ->arrayNode('file_browser')
                     ->children()
                         ->scalarNode('browse_url')->end()

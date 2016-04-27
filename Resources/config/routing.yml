@@ -54,25 +54,3 @@ webburza_article_image_delete:
             redirect:
                 route: webburza_article_show
                 parameters: { id: $articleId }
-
-# ------------------------------------------------------------------------------
-#  FRONTEND
-# ------------------------------------------------------------------------------
-
-webburza_article_frontend_index:
-    path: /%webburza.sylius.article_bundle.slug%/
-    methods: [GET]
-    defaults:
-        _controller: webburza.controller.article:indexFrontAction
-
-webburza_article_frontend_show:
-    path: /%webburza.sylius.article_bundle.slug%/{slug}/
-    methods: [GET]
-    defaults:
-        _controller: webburza.controller.article:showFrontAction
-
-webburza_article_category_frontend_show:
-    path: /%webburza.sylius.article_bundle.slug%/category/{slug}/
-    methods: [GET]
-    defaults:
-        _controller: webburza.controller.article_category:showFrontAction

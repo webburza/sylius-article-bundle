@@ -22,8 +22,6 @@ class WebburzaSyliusArticleExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('webburza.sylius.article_bundle.slug', $config['slug']);
-
         $container->setParameter(
             'webburza.sylius.article_bundle.file_browser.browse_url',
             $config['file_browser']['browse_url']

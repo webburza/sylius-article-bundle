@@ -9,35 +9,43 @@ This bundle extends the Sylius e-commerce platform with Article resource, which 
   1. require the bundle with Composer:
 
   ```bash
-    $ composer require webburza/sylius-article-bundle
+  $ composer require webburza/sylius-article-bundle
   ```
 
   2. enable the bundle in `app/AppKernel.php`:
 
   ```php
-    public function registerBundles()
-    {
-      $bundles = array(
-        // ...
-        new \Webburza\Sylius\ArticleBundle\WebburzaSyliusArticleBundle(),
-        // ...
-      );
-    }
+  public function registerBundles()
+  {
+    $bundles = array(
+      // ...
+      new \Webburza\Sylius\ArticleBundle\WebburzaSyliusArticleBundle(),
+      // ...
+    );
+  }
   ```
 
   3. add configuration to the top of `app/config/config.yml`:
 
   ```yaml
-    imports:
-        - { resource: @WebburzaSyliusArticleBundle/Resources/config/config.yml }
+  imports:
+      - { resource: @WebburzaSyliusArticleBundle/Resources/config/config.yml }
   ```
 
   4. register routes in `app/config/routing.yml`
 
   ```yaml
-    webburza_sylius_article_bundle:
-        resource: "@WebburzaSyliusArticleBundle/Resources/config/routing.yml"
+  webburza_sylius_article_bundle:
+      resource: "@WebburzaSyliusArticleBundle/Resources/config/routing.yml"
+
+  webburza_sylius_article_bundle_front:
+      resource: "@WebburzaSyliusArticleBundle/Resources/config/routingFront.yml"
+      prefix: /articles
   ```
+
+  As you can see, there are two groups of routes, the main resource (administration) routes,
+  and the front-end routes. If you're using the bundle for a blog, or news, you can
+  set the prefix for the routes here, changing it to `/blog`, or `/news`.
 
   5. The bundle should now be fully integrated, but it still requires
 database tables to be created and RBAC permissions set. To ease this
@@ -66,36 +74,6 @@ that of blog, news, or something else completely.
 To get started, check the bundle's main language file in:
 [Resources/translations/messages.en.yml](https://github.com/webburza/sylius-article-bundle/Resources/translations/messages.en.yml)
 
-### Routes
-
-By default, the bundle adds three new front-end routes:
-
-- /articles/
-- /articles/my-first-article/
-- /articles/category/my-first-category/
-
-If you've decided to use the bundle as a blog, you'll probably want to
-have the routes prefixed by `blog`, not `articles`, as is by default.
-To accomplish this, add the bundle's configuration block to your
-`app/config/config.yml` file.
-
-```yaml
-# ...
-
-webburza_sylius_article:
-    slug: articles
-    file_browser:
-        browse_url: ""
-        upload_url: ""
-```
-
-Here you can change the `slug` property to anything you choose, i.e. blog.
-This will result in the following front-end routes.
-
-- /blog/
-- /blog/my-first-article/
-- /blog/category/my-first-category/
-
 ### File repository integration in rich-text editors
 
 The bundle uses rich-text editors ([CKEditor](http://ckeditor.com/)) to work
@@ -115,7 +93,6 @@ URI's, as seen in the example bellow:
 # ...
 
 webburza_sylius_article:
-    slug: articles
     file_browser:
         browse_url: "/browser/browse.php"
         upload_url: "/uploader/upload.php"
