@@ -69,7 +69,7 @@ and all the RBAC permissions, under the existing 'content' node.
 
 ### Translations and naming (blog, news, articles...)
 
-The bundle is has multilingual support, and language files can be
+The bundle has multilingual support, and language files can be
 overridden as with any other bundle, by creating translation files in the
 `app/Resources/WebburzaSyliusArticleBundle/translations` directory.
 
