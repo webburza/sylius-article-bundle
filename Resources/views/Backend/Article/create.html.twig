@@ -28,4 +28,14 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="//cdn.ckeditor.com/4.5.0/standard/ckeditor.js"></script>
+    {% if app.request.get('browse_url') and app.request.get('upload_url') %}
+        <script>
+            $('textarea.ckeditor').each(function() {
+                CKEDITOR.replace($(this).attr('id'), {
+                    filebrowserBrowseUrl: "{{ app.request.get('browse_url') }}",
+                    filebrowserUploadUrl: "{{ app.request.get('upload_url') }}"
+                });
+            })
+        </script>
+    {% endif %}
 {% endblock %}

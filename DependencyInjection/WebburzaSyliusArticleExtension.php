@@ -22,6 +22,16 @@ class WebburzaSyliusArticleExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter(
+            'webburza.sylius.article_bundle.file_browser.browse_url',
+            $config['file_browser']['browse_url']
+        );
+
+        $container->setParameter(
+            'webburza.sylius.article_bundle.file_browser.upload_url',
+            $config['file_browser']['upload_url']
+        );
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }

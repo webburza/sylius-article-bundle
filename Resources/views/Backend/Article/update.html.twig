@@ -1,0 +1,42 @@
+{% extends 'SyliusWebBundle:Backend:layout.html.twig' %}
+
+{% from 'SyliusResourceBundle:Macros:actions.html.twig' import update %}
+
+{% block topbar %}
+    <ol class="breadcrumb">
+        <li>{{ 'sylius.breadcrumb.content'|trans }}</li>
+        <li><a href="{{ path('webburza_article_index') }}">{{ 'webburza.sylius.article.breadcrumb.index'|trans }}</a></li>
+        <li>{{ 'sylius.breadcrumb.edit'|trans }}</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1><i class="glyphicon glyphicon-plus-sign"></i> {{ 'webburza.sylius.article.update_header'|trans|raw }}</h1>
+    </div>
+
+    <form action="{{ path('webburza_article_update', {id: article.id}) }}" method="post" class="form-horizontal" novalidate {{ form_enctype(form) }}>
+        <div class="row">
+            <div class="col-md-8">
+                <input type="hidden" name="_method" value="PUT">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+        {{ update() }}
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdn.ckeditor.com/4.5.0/standard/ckeditor.js"></script>
+    {% if app.request.get('browse_url') and app.request.get('upload_url') %}
+        <script>
+            $('textarea.ckeditor').each(function() {
+                CKEDITOR.replace($(this).attr('id'), {
+                    filebrowserBrowseUrl: "{{ app.request.get('browse_url') }}",
+                    filebrowserUploadUrl: "{{ app.request.get('upload_url') }}"
+                });
+            })
+        </script>
+    {% endif %}
+{% endblock %}

@@ -3,6 +3,8 @@ webburza:
         article:
             backend:
                 articles: Articles
+            frontend:
+                articles: Articles
             breadcrumb:
                 index: Articles
             index_header: Articles
@@ -15,6 +17,7 @@ webburza:
             translations: Translations
             general_info: General info
             back_to_all: back to all articles
+            delete_image: Delete image
             label:
                 id: '#ID'
                 title: Title
@@ -23,10 +26,32 @@ webburza:
                 active: Active?
                 meta_keywords: Meta Keywords
                 meta_description: Meta Description
-                thumbnail: Thumbnail
+                cover_image: Cover Image
                 published_at: Published At
                 published: Published?
                 featured: Featured?
                 created_at: Created At
                 updated_at: Updated At
+                category: Category
+                choose_category: Choose a category...
                 file: File
+        article_category:
+            backend:
+                article_categories: Article Categories
+            breadcrumb:
+                index: Article Categories
+            index_header: Article Categories
+            create_header: New category
+            update_header: Editing category
+            show_header: Category details
+            create: Create category
+            open: Open
+            no_results: No categories found.
+            translations: Translations
+            general_info: General info
+            label:
+                id: '#ID'
+                title: Title
+                published: Published?
+                created_at: Created At
+                updated_at: Updated At

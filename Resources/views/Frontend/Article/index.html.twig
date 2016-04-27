@@ -1,0 +1,29 @@
+{% extends 'SyliusWebBundle:Frontend:layout.html.twig' %}
+
+{% import 'WebburzaSyliusArticleBundle:Frontend/Article:macros.html.twig' as macro %}
+
+{% block title %}{{ 'webburza.sylius.article.index_header' | trans }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">{{ 'webburza.sylius.article.index_header' | trans }}</h1>
+</div>
+
+{% if articles.haveToPaginate() %}
+    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
+{% endif %}
+
+<div class="row">
+    <div class="col-md-9">
+        {{ macro.list(articles) }}
+    </div>
+
+{% if categories is not empty %}
+    {{ macro.articleSidebar(categories) }}
+{% endif %}
+</div>
+
+{% if articles.haveToPaginate() %}
+    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
+{% endif %}
+{% endblock %}

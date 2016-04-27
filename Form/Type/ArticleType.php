@@ -22,7 +22,11 @@ class ArticleType extends AbstractResourceType
         ]);
 
         $builder->add('image', 'webburza_article_image', [
-            'label' => 'webburza.sylius.article.label.thumbnail'
+            'label' => 'webburza.sylius.article.label.cover_image'
+        ]);
+
+        $builder->add('category', 'webburza_article_category_choice', [
+            'label' => 'webburza.sylius.article.label.category'
         ]);
 
         $builder->add('publishedAt', Type\DateTimeType::class, [
@@ -36,6 +40,7 @@ class ArticleType extends AbstractResourceType
         $builder->add('published', Type\CheckboxType::class, [
             'label' => 'webburza.sylius.article.label.published'
         ]);
+
         $builder->add('featured', Type\CheckboxType::class, [
             'label' => 'webburza.sylius.article.label.featured'
         ]);

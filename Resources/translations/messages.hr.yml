@@ -3,6 +3,8 @@ webburza:
         article:
             backend:
                 articles: Članci
+            frontend:
+                articles: Članci
             breadcrumb:
                 index: Članci
             index_header: Članci
@@ -15,6 +17,7 @@ webburza:
             translations: Prijevodi
             general_info: Općenite informacije
             back_to_all: natrag na sve članke
+            delete_image: Izbriši sliku
             label:
                 id: '#ID'
                 title: Naslov
@@ -23,10 +26,32 @@ webburza:
                 active: Aktivno?
                 meta_keywords: Meta ključne riječi
                 meta_description: Meta opis
-                thumbnail: Minijatura
+                cover_image: Noseća slika
                 published_at: Datum objave
                 published: Objavljeno?
                 featured: Istaknuto?
                 created_at: Datum kreiranja
                 updated_at: Datum ažuriranja
+                choose_category: Kategorija
+                choose_category: Odaberite kategoriju...
                 file: Datoteka
+        article_category:
+            backend:
+                article_categories: Kategorije članaka
+            breadcrumb:
+                index: Kategorije članaka
+            index_header: Kategorije članaka
+            create_header: Nova kategorija
+            update_header: Uređivanje kategorije
+            show_header: Detalji kategorije
+            create: Nova kategorija
+            open: Otvori
+            no_results: Nije pronađena niti jedna kategorija.
+            translations: Prijevodi
+            general_info: Općenite informacije
+            label:
+                id: '#ID'
+                title: Naslov
+                published: Objavljeno?
+                created_at: Datum kreiranja
+                updated_at: Datum ažuriranja

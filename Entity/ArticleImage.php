@@ -3,6 +3,7 @@
 namespace Webburza\Sylius\ArticleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Core\Model\Image;
 use Sylius\Component\Core\Model\ImageInterface;
 
@@ -12,7 +13,7 @@ use Sylius\Component\Core\Model\ImageInterface;
  * @ORM\Table(name="webburza_sylius_article_image")
  * @ORM\Entity()
  */
-class ArticleImage extends Image implements ImageInterface
+class ArticleImage extends Image implements ImageInterface, ResourceInterface
 {
     /**
      * The associated article.

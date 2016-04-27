@@ -2,13 +2,34 @@
 #  BACKEND
 # ------------------------------------------------------------------------------
 
-webburza_article:
+webburza_article_category:
     resource: |
-        alias: webburza.article
-        templates: WebburzaSyliusArticleBundle:Backend
+        alias: webburza.article_category
+        templates: WebburzaSyliusArticleBundle:Backend/Category
         except: ['index']
     type: sylius.resource
     prefix: /administration
+
+webburza_article_category_index:
+    path: /administration/article-categories/
+    methods: [GET]
+    defaults:
+        _controller: webburza.controller.article_category:indexAction
+        _sylius:
+            template: WebburzaSyliusArticleBundle:Backend/Category:index.html.twig
+            sortable: true
+            paginate: 10
+
+webburza_article:
+    resource: |
+        alias: webburza.article
+        templates: WebburzaSyliusArticleBundle:Backend/Article
+        except: ['index']
+    type: sylius.resource
+    prefix: /administration
+    defaults:
+        browse_url: %webburza.sylius.article_bundle.file_browser.browse_url%
+        upload_url: %webburza.sylius.article_bundle.file_browser.upload_url%
 
 webburza_article_index:
     path: /administration/articles/
@@ -16,7 +37,7 @@ webburza_article_index:
     defaults:
         _controller: webburza.controller.article:indexAction
         _sylius:
-            template: WebburzaSyliusArticleBundle:Backend:index.html.twig
+            template: WebburzaSyliusArticleBundle:Backend/Article:index.html.twig
             sortable: true
             paginate: 10
             sorting:
@@ -24,14 +45,12 @@ webburza_article_index:
                 publishedAt: desc
                 createdAt: desc
 
-webburza_article_frontend_index:
-    path: /articles/
-    methods: [GET]
+webburza_article_image_delete:
+    path: /administration/article-image/{id}
+    methods: [DELETE]
     defaults:
-        _controller: webburza.controller.article:indexFrontAction
-
-webburza_article_frontend_show:
-    path: /articles/{slug}/
-    methods: [GET]
-    defaults:
-        _controller: webburza.controller.article:showFrontAction
+        _controller: webburza.controller.article_image:deleteAction
+        _sylius:
+            redirect:
+                route: webburza_article_show
+                parameters: { id: $articleId }

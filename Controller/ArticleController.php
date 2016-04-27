@@ -31,13 +31,19 @@ class ArticleController extends ResourceController
         $articlesPaginator->setCurrentPage($this->get('request')->get('page', 1), true, true);
         $articlesPaginator->setMaxPerPage($configuration->getPaginationMaxPerPage());
 
+        // Get categories for listing
+        $categories = $this->get('webburza.repository.article_category')->findBy([
+            'published' => true
+        ]);
+
         // Create the view
         $view = View::create();
 
         // Set template and data
-        $view->setTemplate('WebburzaSyliusArticleBundle:Frontend:index.html.twig');
+        $view->setTemplate('WebburzaSyliusArticleBundle:Frontend/Article:index.html.twig');
         $view->setData(array(
-            'articles' => $articlesPaginator
+            'articles' => $articlesPaginator,
+            'categories' => $categories
         ));
 
         // Handle view
@@ -69,13 +75,26 @@ class ArticleController extends ResourceController
             throw $this->createNotFoundException();
         }
 
+        // Get categories for listing
+        $categories = $this->get('webburza.repository.article_category')->findBy([
+            'published' => true
+        ]);
+
+        // Get related articles
+        $relatedArticles =
+            $this
+                ->get('webburza.repository.article')
+                ->getRelatedArticles($article, $locale);
+
         // Create the view
         $view = View::create();
 
         // Set template and data
-        $view->setTemplate('WebburzaSyliusArticleBundle:Frontend:show.html.twig');
+        $view->setTemplate('WebburzaSyliusArticleBundle:Frontend/Article:show.html.twig');
         $view->setData(array(
-            'article' => $article
+            'article' => $article,
+            'categories' => $categories,
+            'related_articles' => $relatedArticles
         ));
 
         // Handle view

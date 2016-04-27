@@ -5,17 +5,17 @@
 {% block topbar %}
     <ol class="breadcrumb">
         <li>{{ 'sylius.breadcrumb.content'|trans }}</li>
-        <li><a href="{{ path('webburza_article_index') }}">{{ 'webburza.sylius.article.breadcrumb.index'|trans }}</a></li>
+        <li><a href="{{ path('webburza_article_category_index') }}">{{ 'webburza.sylius.article_category.breadcrumb.index'|trans }}</a></li>
         <li>{{ 'sylius.breadcrumb.edit'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
     <div class="page-header">
-        <h1><i class="glyphicon glyphicon-plus-sign"></i> {{ 'webburza.sylius.article.update_header'|trans|raw }}</h1>
+        <h1><i class="glyphicon glyphicon-plus-sign"></i> {{ 'webburza.sylius.article_category.update_header'|trans|raw }}</h1>
     </div>
 
-    <form action="{{ path('webburza_article_update', {id: article.id}) }}" method="post" class="form-horizontal" novalidate {{ form_enctype(form) }}>
+    <form action="{{ path('webburza_article_category_update', {id: article_category.id}) }}" method="post" class="form-horizontal" novalidate {{ form_enctype(form) }}>
         <div class="row">
             <div class="col-md-8">
                 <input type="hidden" name="_method" value="PUT">
@@ -24,9 +24,4 @@
         </div>
         {{ update() }}
     </form>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="//cdn.ckeditor.com/4.5.0/standard/ckeditor.js"></script>
 {% endblock %}
