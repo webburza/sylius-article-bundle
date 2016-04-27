@@ -39,6 +39,14 @@ class InstallCommand extends ContainerAwareCommand
      */
     private function createArticleTables($manager)
     {
+        // Check if tables already exist
+        $schemaManager = $manager->getConnection()->getSchemaManager();
+
+        // Skipp if article table already exist
+        if ($schemaManager->tablesExist(['webburza_sylius_article'])) {
+            return;
+        }
+
         $queries = [
             'CREATE TABLE webburza_sylius_article (id INT AUTO_INCREMENT NOT NULL, category_id INT DEFAULT NULL, published TINYINT(1) NOT NULL, featured TINYINT(1) NOT NULL, published_at DATETIME DEFAULT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_9FD397A312469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB',
             'CREATE TABLE webburza_sylius_article_category (id INT AUTO_INCREMENT NOT NULL, published TINYINT(1) NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB',
