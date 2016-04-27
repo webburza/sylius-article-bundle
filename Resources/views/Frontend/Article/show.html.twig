@@ -30,7 +30,19 @@
     </div>
 
 {% if categories is not empty %}
-    {{ macro.articleSidebar(categories, article.category.id, true) }}
+    {{ macro.articleSidebar(categories, article.category, true) }}
 {% endif %}
 </div>
+
+{% if related_articles is not empty %}
+<hr>
+
+<div class="row">
+    <div class="col-md-9">
+        <h2>{{ 'webburza.sylius.article.frontend.latest_from_category' | trans }} &quot;{{ article.category.title }}&quot;</h2>
+
+        {{ macro.list(related_articles) }}
+    </div>
+</div>
+{% endif %}
 {% endblock %}

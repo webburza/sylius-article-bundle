@@ -5,6 +5,9 @@ webburza:
                 articles: Articles
             frontend:
                 articles: Articles
+                latest_from_category: 'Latest from category'
+                related_articles: 'Related articles'
+                latest_articles: 'Latest articles'
             breadcrumb:
                 index: Articles
             index_header: Articles
