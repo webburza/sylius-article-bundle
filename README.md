@@ -1,13 +1,14 @@
 # Sylius Article Bundle
 
-[![Build Status](https://travis-ci.org/webburza/sylius-article-bundle.svg?branch=master)](https://travis-ci.org/webburza/sylius-article-bundle)
+This bundle extends the Sylius e-commerce platform with Article resource, which can be used to
+publish news, articles, or as a blog. It comes with full multilingual support, the ability to
+group articles into categories and to list related articles.
 
 [<img title="Single Article" src="http://i.imgur.com/aFZg03r.png" width="235">](http://i.imgur.com/aFZg03r.png)
 [<img title="Single Article in CMS" src="http://i.imgur.com/oMZ5Z7i.png" width="235">](http://i.imgur.com/oMZ5Z7i.png)
 [<img title="Article Listing in CMS" src="http://i.imgur.com/zjFYdyN.png" width="235">](http://i.imgur.com/zjFYdyN.png)
 
-
-This bundle extends the Sylius e-commerce platform with Article resource, which can be used to publish news, articles, or as a blog.
+---
 
 ## Installation
 
@@ -109,3 +110,7 @@ For more information, see http://docs.ckeditor.com/#!/guide/dev_file_browse_uplo
 ## License
 
 This bundle is available under the [MIT license](LICENSE).
+
+## To-do
+
+- Tests

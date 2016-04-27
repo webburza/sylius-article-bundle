@@ -5,6 +5,9 @@ webburza:
                 articles: Članci
             frontend:
                 articles: Članci
+                latest_from_category: 'Najnovije iz kategorije'
+                related_articles: 'Povezani članci'
+                latest_articles: 'Najnoviji članci'
             breadcrumb:
                 index: Članci
             index_header: Članci
