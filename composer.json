@@ -9,7 +9,9 @@
         "symfony",
         "sylius",
         "article",
-        "articles"
+        "articles",
+        "blog",
+        "news"
     ],
     "authors": [
         {
