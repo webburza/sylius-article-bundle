@@ -2,7 +2,7 @@
 
 This bundle extends the Sylius e-commerce platform with Article resource, which can be used to
 publish news, articles, or as a blog. It comes with full multilingual support, the ability to
-group articles into categories and to lists related articles.
+group articles into categories and to list related articles.
 
 [<img title="Single Article" src="http://i.imgur.com/aFZg03r.png" width="235">](http://i.imgur.com/aFZg03r.png)
 [<img title="Single Article in CMS" src="http://i.imgur.com/oMZ5Z7i.png" width="235">](http://i.imgur.com/oMZ5Z7i.png)
