@@ -6,6 +6,12 @@ services:
             - { name: kernel.event_listener, event: sylius.menu_builder.backend.main, method: addBackendMenuItems }
             - { name: kernel.event_listener, event: sylius.menu_builder.backend.sidebar, method: addBackendMenuItems }
 
+    webburza.sylius.article.listener.front_menu_builder:
+        class: Webburza\Sylius\ArticleBundle\EventListener\FrontendMenuBuilderListener
+        arguments: [@translator]
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu_builder.frontend.main, method: addFrontendMenuItems }
+
     webburza.sylius.article.listener.published:
         class: Webburza\Sylius\ArticleBundle\EventListener\PublishedListener
         tags:

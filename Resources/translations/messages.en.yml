@@ -3,6 +3,8 @@ webburza:
         article:
             backend:
                 articles: Articles
+            frontend:
+                articles: Articles
             breadcrumb:
                 index: Articles
             index_header: Articles

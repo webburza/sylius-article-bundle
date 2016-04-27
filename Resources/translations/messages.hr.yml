@@ -3,6 +3,8 @@ webburza:
         article:
             backend:
                 articles: Članci
+            frontend:
+                articles: Članci
             breadcrumb:
                 index: Članci
             index_header: Članci
