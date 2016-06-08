@@ -3,19 +3,19 @@
 namespace Webburza\Sylius\ArticleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Resource\Model\ResourceInterface;
-use Sylius\Component\Translation\Model\AbstractTranslation;
+use Sylius\Component\Resource\Model\AbstractTranslation;
 use Symfony\Component\Validator\Constraints as Assert;
+use Webburza\Sylius\ArticleBundle\Model\ArticleTranslationInterface;
 use Webburza\Sylius\ArticleBundle\Validator\Constraints;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Article
+ * ArticleTranslation
  *
  * @ORM\Table(name="webburza_sylius_article_translation")
  * @ORM\Entity()
  */
-class ArticleTranslation extends AbstractTranslation implements ResourceInterface
+class ArticleTranslation extends AbstractTranslation implements ArticleTranslationInterface
 {
     /**
      * @var integer
@@ -32,7 +32,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      * @Constraints\NotBlankIfActive()
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
@@ -40,14 +40,14 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      * @Gedmo\Slug(fields={"title"}, unique_base="locale")
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @var string
      *
      * @ORM\Column(name="lead", type="text", nullable=true)
      */
-    private $lead;
+    protected $lead;
 
     /**
      * @var string
@@ -55,28 +55,28 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
      * @ORM\Column(name="content", type="text", nullable=true)
      * @Constraints\NotBlankIfActive()
      */
-    private $content;
+    protected $content;
 
     /**
      * @var string
      *
      * @ORM\Column(name="meta_keywords", type="text", nullable=true)
      */
-    private $metaKeywords;
+    protected $metaKeywords;
 
     /**
      * @var string
      *
      * @ORM\Column(name="meta_description", type="text", nullable=true)
      */
-    private $metaDescription;
+    protected $metaDescription;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    protected $active;
 
     /**
      * @return int
@@ -96,7 +96,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
 
     /**
      * @param string $title
-     * @return Article
+     * @return ArticleTranslationInterface
      */
     public function setTitle($title)
     {
@@ -115,7 +115,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
 
     /**
      * @param string $slug
-     * @return Article
+     * @return ArticleTranslationInterface
      */
     public function setSlug($slug)
     {
@@ -134,7 +134,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
 
     /**
      * @param string $lead
-     * @return Article
+     * @return ArticleTranslationInterface
      */
     public function setLead($lead)
     {
@@ -153,7 +153,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
 
     /**
      * @param string $content
-     * @return Article
+     * @return ArticleTranslationInterface
      */
     public function setContent($content)
     {
@@ -172,7 +172,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
 
     /**
      * @param boolean $active
-     * @return ArticleTranslation
+     * @return ArticleTranslationInterface
      */
     public function setActive($active)
     {
@@ -191,7 +191,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
 
     /**
      * @param string $metaKeywords
-     * @return ArticleTranslation
+     * @return ArticleTranslationInterface
      */
     public function setMetaKeywords($metaKeywords)
     {
@@ -210,7 +210,7 @@ class ArticleTranslation extends AbstractTranslation implements ResourceInterfac
 
     /**
      * @param string $metaDescription
-     * @return ArticleTranslation
+     * @return ArticleTranslationInterface
      */
     public function setMetaDescription($metaDescription)
     {

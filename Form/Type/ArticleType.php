@@ -5,6 +5,7 @@ namespace Webburza\Sylius\ArticleBundle\Form\Type;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class ArticleType extends AbstractResourceType
 {
@@ -16,9 +17,12 @@ class ArticleType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('translations', 'a2lix_translationsForms', [
-            'form_type' => 'webburza_article_translation',
-            'label'    => 'webburza.sylius.article.translations'
+        $builder->add('translations', 'sylius_translations', [
+            'type' => 'webburza_article_translation',
+            'label' => 'webburza.sylius.article.translations',
+            'constraints' => [
+                new Valid()
+            ]
         ]);
 
         $builder->add('image', 'webburza_article_image', [

@@ -16,8 +16,8 @@ class ArticleCategoryType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('translations', 'a2lix_translationsForms', [
-            'form_type' => 'webburza_article_category_translation',
+        $builder->add('translations', 'sylius_translations', [
+            'type' => 'webburza_article_category_translation',
             'label'    => 'webburza.sylius.article_category.translations'
         ]);
 
