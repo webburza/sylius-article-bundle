@@ -10,7 +10,7 @@ class FrontendMenuBuilderListener
     /**
      * @var Translator
      */
-    private $translator;
+    protected $translator;
 
     public function __construct(DataCollectorTranslator $translator)
     {

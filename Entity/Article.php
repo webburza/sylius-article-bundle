@@ -4,10 +4,11 @@ namespace Webburza\Sylius\ArticleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Sylius\Component\Resource\Model\ResourceInterface;
-use Sylius\Component\Translation\Model\AbstractTranslatable;
-use Sylius\Component\Translation\Model\TranslationInterface;
+use Sylius\Component\Resource\Model\TranslatableTrait;
 use Symfony\Component\Validator\Constraints as Assert;
+use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleImageInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleInterface;
 use Webburza\Sylius\ArticleBundle\Validator\Constraints;
 
 /**
@@ -17,8 +18,12 @@ use Webburza\Sylius\ArticleBundle\Validator\Constraints;
  * @ORM\Entity()
  * @Constraints\HasActiveTranslation()
  */
-class Article extends AbstractTranslatable implements ResourceInterface
+class Article implements ArticleInterface
 {
+    use TranslatableTrait {
+        __construct as private initializeTranslationsCollection;
+    }
+
     /**
      * @var integer
      *
@@ -33,21 +38,21 @@ class Article extends AbstractTranslatable implements ResourceInterface
      *
      * @ORM\Column(name="published", type="boolean")
      */
-    private $published;
+    protected $published;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="featured", type="boolean")
      */
-    private $featured;
+    protected $featured;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
-    private $publishedAt;
+    protected $publishedAt;
 
     /**
      * @var \DateTime
@@ -55,7 +60,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
@@ -63,25 +68,27 @@ class Article extends AbstractTranslatable implements ResourceInterface
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
-     * @var TranslationInterface[]
-     * @Assert\Valid()
-     */
-    protected $translations;
-
-    /**
-     * @var ArticleImage
-     * @ORM\OneToOne(targetEntity="ArticleImage", mappedBy="article", cascade={"persist", "remove"})
+     * @var ArticleImageInterface
+     * @ORM\OneToOne(targetEntity="Webburza\Sylius\ArticleBundle\Model\ArticleImageInterface", mappedBy="article", cascade={"persist", "remove"})
      */
     protected $image;
 
     /**
-     * @var ArticleCategory
-     * @ORM\ManyToOne(targetEntity="ArticleCategory", inversedBy="articles")
+     * @var ArticleCategoryInterface
+     * @ORM\ManyToOne(targetEntity="Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface", inversedBy="articles")
      */
     protected $category;
+
+    /**
+     * Article constructor.
+     */
+    public function __construct()
+    {
+        $this->initializeTranslationsCollection();
+    }
 
     /**
      * @return int
@@ -133,7 +140,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
 
     /**
      * @param boolean $published
-     * @return Article
+     * @return ArticleInterface
      */
     public function setPublished($published)
     {
@@ -152,7 +159,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
 
     /**
      * @param boolean $featured
-     * @return Article
+     * @return ArticleInterface
      */
     public function setFeatured($featured)
     {
@@ -171,7 +178,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
 
     /**
      * @param \DateTime $publishedAt
-     * @return Article
+     * @return ArticleInterface
      */
     public function setPublishedAt($publishedAt)
     {
@@ -190,7 +197,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
 
     /**
      * @param \DateTime $createdAt
-     * @return Article
+     * @return ArticleInterface
      */
     public function setCreatedAt($createdAt)
     {
@@ -209,7 +216,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
 
     /**
      * @param \DateTime $updatedAt
-     * @return Article
+     * @return ArticleInterface
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -219,7 +226,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
     }
 
     /**
-     * @return ArticleImage
+     * @return ArticleImageInterface
      */
     public function getImage()
     {
@@ -227,10 +234,10 @@ class Article extends AbstractTranslatable implements ResourceInterface
     }
 
     /**
-     * @param ArticleImage $image
-     * @return Article
+     * @param ArticleImageInterface $image
+     * @return ArticleInterface
      */
-    public function setImage(ArticleImage $image)
+    public function setImage(ArticleImageInterface $image)
     {
         $this->image = $image;
         $image->setArticle($this);
@@ -241,7 +248,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
     /**
      * Remove the image.
      *
-     * @return $this
+     * @return ArticleInterface
      */
     public function clearImage()
     {
@@ -267,7 +274,7 @@ class Article extends AbstractTranslatable implements ResourceInterface
     }
 
     /**
-     * @return ArticleCategory[]
+     * @return ArticleCategoryInterface
      */
     public function getCategory()
     {
@@ -275,10 +282,10 @@ class Article extends AbstractTranslatable implements ResourceInterface
     }
 
     /**
-     * @param ArticleCategory[] $category
-     * @return Article
+     * @param ArticleCategoryInterface $category
+     * @return ArticleInterface
      */
-    public function setCategory($category)
+    public function setCategory(ArticleCategoryInterface $category)
     {
         $this->category = $category;
 

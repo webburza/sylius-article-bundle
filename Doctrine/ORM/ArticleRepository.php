@@ -3,20 +3,21 @@
 namespace Webburza\Sylius\ArticleBundle\Doctrine\ORM;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Webburza\Sylius\ArticleBundle\Entity\Article;
-use Webburza\Sylius\ArticleBundle\Entity\ArticleCategory;
+use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleRepositoryInterface;
 
-class ArticleRepository extends EntityRepository implements RepositoryInterface
+class ArticleRepository extends EntityRepository implements ArticleRepositoryInterface
 {
     /**
      * Get publicly visible articles
      *
      * @param $locale
-     * @param ArticleCategory|null $category
+     * @param ArticleCategoryInterface|null $category
+     *
      * @return mixed|\Pagerfanta\Pagerfanta
      */
-    public function getPublicPaginatorForLocale($locale, ArticleCategory $category = null)
+    public function getPublicPaginatorForLocale($locale, ArticleCategoryInterface $category = null)
     {
         $queryBuilder = $this->createQueryBuilder('a');
         $queryBuilder->leftJoin('a.translations', 't');
@@ -45,46 +46,15 @@ class ArticleRepository extends EntityRepository implements RepositoryInterface
     }
 
     /**
-     * Find a publicly visible article by a slug, for the provided locale.
-     *
-     * @param $slug
-     * @param $locale
-     *
-     * @return array
-     */
-    public function findPublicBySlug($slug, $locale)
-    {
-        $queryBuilder = $this->createQueryBuilder('a');
-        $queryBuilder->leftJoin('a.translations', 't');
-        $queryBuilder->leftJoin('a.category', 'c');
-
-        $queryBuilder
-            ->andWhere('t.slug = :slug')
-            ->andWhere('t.locale = :locale')
-            ->andWhere('a.published = true')
-            ->andWhere('t.active = true')
-            ->andWhere('c IS NULL OR c.published = true');
-
-        $queryBuilder->setParameters([
-            ':slug' => $slug,
-            ':locale' => $locale
-        ]);
-
-        $article = $queryBuilder->getQuery()->getOneOrNullResult();
-
-        return $article;
-    }
-
-    /**
      * Get related articles for an article.
      *
-     * @param $article
+     * @param ArticleInterface $article
      * @param $locale
      * @param int $limit
      *
-     * @return Article[]
+     * @return ArticleInterface[]
      */
-    public function getRelatedArticles($article, $locale, $limit = 6)
+    public function getRelatedArticles(ArticleInterface $article, $locale, $limit = 6)
     {
         $queryBuilder = $this->createQueryBuilder('a');
         $queryBuilder->leftJoin('a.translations', 't');
@@ -113,5 +83,36 @@ class ArticleRepository extends EntityRepository implements RepositoryInterface
         $articles = $queryBuilder->getQuery()->getResult();
 
         return $articles;
+    }
+
+    /**
+     * Find a publicly visible article by a slug, for the provided locale.
+     *
+     * @param $slug
+     * @param $locale
+     *
+     * @return ArticleInterface|null
+     */
+    public function findPublicBySlug($slug, $locale)
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder->leftJoin('a.translations', 't');
+        $queryBuilder->leftJoin('a.category', 'c');
+
+        $queryBuilder
+            ->andWhere('t.slug = :slug')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('a.published = true')
+            ->andWhere('t.active = true')
+            ->andWhere('c IS NULL OR c.published = true');
+
+        $queryBuilder->setParameters([
+            ':slug' => $slug,
+            ':locale' => $locale
+        ]);
+
+        $article = $queryBuilder->getQuery()->getOneOrNullResult();
+
+        return $article;
     }
 }

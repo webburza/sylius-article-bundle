@@ -3,9 +3,8 @@ namespace Webburza\Sylius\ArticleBundle\EventListener;
 
 use DateTime;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
-use Sylius\Component\Resource\Event\ResourceEvent;
 use Sylius\Component\Resource\Exception\UnexpectedTypeException;
-use Webburza\Sylius\ArticleBundle\Entity\Article;
+use Webburza\Sylius\ArticleBundle\Model\ArticleInterface;
 
 class PublishedListener
 {
@@ -18,11 +17,11 @@ class PublishedListener
      */
     public function setPublishedAt(ResourceControllerEvent $event)
     {
-        /** @var Article $subject */
+        /** @var ArticleInterface $subject */
         $subject = $event->getSubject();
 
-        if (!$subject instanceof Article) {
-            throw new UnexpectedTypeException($subject, 'Webburza\Sylius\ArticleBundle\Entity\Article');
+        if (!$subject instanceof ArticleInterface) {
+            throw new UnexpectedTypeException($subject, 'Webburza\Sylius\ArticleBundle\Model\ArticleInterface');
         }
 
         if ($subject->isPublished() && $subject->getPublishedAt() == null) {

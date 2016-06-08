@@ -23,7 +23,7 @@
         "psr-4": { "Webburza\\Sylius\\ArticleBundle\\": "" }
     },
     "require": {
-        "sylius/core": "^0.17"
+        "sylius/core": "^0.18"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8"

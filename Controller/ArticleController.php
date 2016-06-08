@@ -5,9 +5,10 @@ namespace Webburza\Sylius\ArticleBundle\Controller;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-use Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleRepository;
+use Webburza\Sylius\ArticleBundle\Model\ArticleControllerInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleRepositoryInterface;
 
-class ArticleController extends ResourceController
+class ArticleController extends ResourceController implements ArticleControllerInterface
 {
     /**
      * Show publicly visible articles for the current locale.
@@ -23,7 +24,7 @@ class ArticleController extends ResourceController
         // Get request configuration
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
-        /** @var ArticleRepository $repository */
+        /** @var ArticleRepositoryInterface $repository */
         $repository = $this->repository;
 
         // Get a paginator for publicly visible articles for locale
@@ -65,7 +66,7 @@ class ArticleController extends ResourceController
         // Get request configuration
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
-        /** @var ArticleRepository $repository */
+        /** @var ArticleRepositoryInterface $repository */
         $repository = $this->repository;
 
         // Get a publicly visible article by translated slug

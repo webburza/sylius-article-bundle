@@ -4,7 +4,7 @@ namespace Webburza\Sylius\ArticleBundle\EventListener;
 use Sylius\Component\Core\Uploader\ImageUploaderInterface;
 use Sylius\Component\Resource\Exception\UnexpectedTypeException;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Webburza\Sylius\ArticleBundle\Entity\Article;
+use Webburza\Sylius\ArticleBundle\Model\ArticleInterface;
 
 class ImageUploadListener
 {
@@ -17,17 +17,16 @@ class ImageUploadListener
 
     public function uploadArticleImage(GenericEvent $event)
     {
-        /** @var Article $subject */
+        /** @var ArticleInterface $subject */
         $subject = $event->getSubject();
 
-        if (!$subject instanceof Article) {
-            throw new UnexpectedTypeException($subject, 'Webburza\Sylius\ArticleBundle\Entity\Article');
+        if (!$subject instanceof ArticleInterface) {
+            throw new UnexpectedTypeException($subject, 'Webburza\Sylius\ArticleBundle\Model\ArticleInterface');
         }
 
         if ($subject->getImage()->hasFile()) {
             $this->uploader->upload($subject->getImage());
-        }
-        else {
+        } else {
             $subject->clearImage();
         }
     }

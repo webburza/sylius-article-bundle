@@ -3,9 +3,10 @@
 namespace Webburza\Sylius\ArticleBundle\Doctrine\ORM;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryRepositoryInterface;
 
-class ArticleCategoryRepository extends EntityRepository implements RepositoryInterface
+class ArticleCategoryRepository extends EntityRepository implements ArticleCategoryRepositoryInterface
 {
     /**
      * Find a publicly visible article category by a slug, for the provided locale.
@@ -13,7 +14,7 @@ class ArticleCategoryRepository extends EntityRepository implements RepositoryIn
      * @param $slug
      * @param $locale
      *
-     * @return array
+     * @return ArticleCategoryInterface|null
      */
     public function findPublicBySlug($slug, $locale)
     {
