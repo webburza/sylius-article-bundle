@@ -33,6 +33,31 @@
                 <div class="panel-heading">{{ article.title }}</div>
                 <div class="panel-body">{{ article.content | raw }}</div>
             </div>
+
+            {% if article.products is not empty %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th colspan="2">{{ 'webburza.sylius.article.related_products'|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in article.products %}
+                    <tr>
+                        <td width="10%">
+                            <a href="{{ path('sylius_backend_product_show', {'id': product.id}) }}" class="pull-left"
+                               title="{{ 'sylius.ui.view_product_details'|trans({'%product%': product.name})|escape('html_attr') }}">
+                                <img src="{{ product.image ? product.image.path|imagine_filter('sylius_small') : 'http://placehold.it/120x90' }}" alt="" class="imgmedia-object" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('sylius_backend_product_show', {id: product.id}) }}">{{ product.name }}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
 
         <div class="col-md-6">

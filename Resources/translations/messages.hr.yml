@@ -19,6 +19,7 @@ webburza:
             no_results: Nije pronađen niti jedan članak.
             translations: Prijevodi
             general_info: Općenite informacije
+            related_products: Povezani proizvodi
             back_to_all: natrag na sve članke
             delete_image: Izbriši sliku
             label:
@@ -35,6 +36,8 @@ webburza:
                 featured: Istaknuto?
                 created_at: Datum kreiranja
                 updated_at: Datum ažuriranja
+                products: Povezani proizvodi
+                choose_products: Odaberite proizvode...
                 choose_category: Kategorija
                 choose_category: Odaberite kategoriju...
                 file: Datoteka

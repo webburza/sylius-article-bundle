@@ -53,11 +53,13 @@ class UninstallCommand extends ContainerAwareCommand
         }
 
         $queries = [
+            'ALTER TABLE webburza_sylius_article_product DROP FOREIGN KEY FK_2AB0C4534584665A',
             'ALTER TABLE webburza_sylius_article_translation DROP FOREIGN KEY FK_B49ACC0B2C2AC5D3',
             'ALTER TABLE webburza_sylius_article_image DROP FOREIGN KEY FK_710599397294869C',
             'ALTER TABLE webburza_sylius_article DROP FOREIGN KEY FK_9FD397A312469DE2',
             'ALTER TABLE webburza_sylius_article_category_translation DROP FOREIGN KEY FK_1B9F69192C2AC5D3',
             'DROP TABLE webburza_sylius_article',
+            'DROP TABLE webburza_sylius_article_product',
             'DROP TABLE webburza_sylius_article_category',
             'DROP TABLE webburza_sylius_article_translation',
             'DROP TABLE webburza_sylius_article_image',

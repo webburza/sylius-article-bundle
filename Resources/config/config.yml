@@ -36,6 +36,7 @@ doctrine:
             Webburza\Sylius\ArticleBundle\Model\ArticleImageInterface: %webburza.model.article_image.class%
             Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface: %webburza.model.article_category.class%
             Webburza\Sylius\ArticleBundle\Model\ArticleInterface: %webburza.model.article.class%
+            Sylius\Component\Core\Model\ProductInterface: %sylius.model.product.class%
 
 webburza_sylius_article:
     file_browser:

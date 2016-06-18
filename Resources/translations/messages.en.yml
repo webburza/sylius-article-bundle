@@ -19,6 +19,7 @@ webburza:
             no_results: No articles found.
             translations: Translations
             general_info: General info
+            related_products: Related products
             back_to_all: back to all articles
             delete_image: Delete image
             label:
@@ -35,6 +36,8 @@ webburza:
                 featured: Featured?
                 created_at: Created At
                 updated_at: Updated At
+                products: Related products
+                choose_products: Choose products...
                 category: Category
                 choose_category: Choose a category...
                 file: File

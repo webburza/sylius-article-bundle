@@ -19,7 +19,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-7{{ categories is empty ? ' col-md-offset-2' : '' }}">
+    <div class="col-md-7{{ categories is empty and article.products is empty ? ' col-md-offset-2' : '' }}">
 {% if article.image %}
         <img src="{{ article.image.path|imagine_filter('sylius_large') }}" class="img-responsive img-thumbnail">
 
@@ -29,8 +29,8 @@
         {{ article.content|raw }}
     </div>
 
-{% if categories is not empty %}
-    {{ macro.articleSidebar(categories, article.category, true) }}
+{% if categories is not empty or article.products is not empty %}
+    {{ macro.articleSidebar(categories, article.category, article.products, true) }}
 {% endif %}
 </div>
 

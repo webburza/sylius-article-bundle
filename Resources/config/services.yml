@@ -36,3 +36,9 @@ services:
         tags:
             - { name: form.type, alias: webburza_article_category_choice }
         arguments: [@webburza.repository.article_category]
+
+    webburza.sylius.article.form.type.product_choice:
+        class: Webburza\Sylius\ArticleBundle\Form\Type\ProductChoiceType
+        tags:
+            - { name: form.type, alias: webburza_article_product_choice }
+        arguments: [@sylius.repository.product]

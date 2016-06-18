@@ -33,6 +33,14 @@ class ArticleType extends AbstractResourceType
             'label' => 'webburza.sylius.article.label.category'
         ]);
 
+        $builder->add('products', 'webburza_article_product_choice', [
+            'label' => 'webburza.sylius.article.label.products',
+            'attr' => [
+                'size' => 10
+            ],
+            'multiple' => true
+        ]);
+
         $builder->add('publishedAt', Type\DateTimeType::class, [
             'label' => 'webburza.sylius.article.label.published_at',
             'required' => false,

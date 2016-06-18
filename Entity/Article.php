@@ -2,8 +2,10 @@
 
 namespace Webburza\Sylius\ArticleBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
@@ -83,11 +85,27 @@ class Article implements ArticleInterface
     protected $category;
 
     /**
+     * @var ProductInterface[]
+     *
+     * @ORM\ManyToMany(targetEntity="Sylius\Component\Core\Model\ProductInterface")
+     * @ORM\JoinTable(name="webburza_sylius_article_product",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     *      },
+     *      inverseJoinColumns={
+     *          @ORM\JoinColumn(name="article_id", referencedColumnName="id", unique=true)
+     *      }
+     * )
+     */
+    protected $products;
+
+    /**
      * Article constructor.
      */
     public function __construct()
     {
         $this->initializeTranslationsCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**
@@ -288,6 +306,47 @@ class Article implements ArticleInterface
     public function setCategory(ArticleCategoryInterface $category)
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     * @return ArticleInterface
+     */
+    public function setProducts(ArrayCollection $products)
+    {
+        $this->products = $products;
+
+        return $this;
+    }
+
+    /**
+     * @param ProductInterface $product
+     * @return ArticleInterface
+     */
+    public function addProduct(ProductInterface $product)
+    {
+        $this->products->add($product);
+
+        return $this;
+    }
+
+    /**
+     * @param ProductInterface $product
+     * @return ArticleInterface
+     */
+    public function removeProduct(ProductInterface $product)
+    {
+        $this->products->removeElement($product);
 
         return $this;
     }
