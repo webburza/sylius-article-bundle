@@ -16,7 +16,7 @@ class ArticleCategoryTranslationType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', Type\TextType::class, [
+        $builder->add('title', 'text', [
             'label' => 'webburza.sylius.article_category.label.title'
         ]);
     }

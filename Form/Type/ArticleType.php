@@ -41,7 +41,7 @@ class ArticleType extends AbstractResourceType
             'multiple' => true
         ]);
 
-        $builder->add('publishedAt', Type\DateTimeType::class, [
+        $builder->add('publishedAt', 'datetime', [
             'label' => 'webburza.sylius.article.label.published_at',
             'required' => false,
             'date_format' => 'y-M-d',
@@ -49,11 +49,11 @@ class ArticleType extends AbstractResourceType
             'time_widget' => 'text'
         ]);
 
-        $builder->add('published', Type\CheckboxType::class, [
+        $builder->add('published', 'checkbox', [
             'label' => 'webburza.sylius.article.label.published'
         ]);
 
-        $builder->add('featured', Type\CheckboxType::class, [
+        $builder->add('featured', 'checkbox', [
             'label' => 'webburza.sylius.article.label.featured'
         ]);
     }
