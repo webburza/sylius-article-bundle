@@ -21,7 +21,7 @@ class ArticleCategoryType extends AbstractResourceType
             'label'    => 'webburza.sylius.article_category.translations'
         ]);
 
-        $builder->add('published', Type\CheckboxType::class, [
+        $builder->add('published', 'checkbox', [
             'label' => 'webburza.sylius.article_category.label.published'
         ]);
     }

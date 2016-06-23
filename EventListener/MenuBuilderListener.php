@@ -2,8 +2,8 @@
 namespace Webburza\Sylius\ArticleBundle\EventListener;
 
 use Sylius\Bundle\WebBundle\Event\MenuBuilderEvent;
-use Symfony\Component\Translation\DataCollectorTranslator;
 use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class MenuBuilderListener
 {
@@ -12,7 +12,7 @@ class MenuBuilderListener
      */
     protected $translator;
 
-    public function __construct(DataCollectorTranslator $translator)
+    public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
@@ -21,18 +21,20 @@ class MenuBuilderListener
     {
         $menu = $event->getMenu();
 
-        $menu['content']
-            ->addChild('webburza_sylius_articles', array(
-                'route'           => 'webburza_article_index',
-                'labelAttributes' => array('icon' => 'glyphicon glyphicon-file'),
-            ))
-            ->setLabel($this->translator->trans('webburza.sylius.article.backend.articles'));
+        if (isset($menu['content'])) {
+            $menu['content']
+                ->addChild('webburza_sylius_articles', array(
+                    'route'           => 'webburza_article_index',
+                    'labelAttributes' => array('icon' => 'glyphicon glyphicon-file'),
+                ))
+                ->setLabel($this->translator->trans('webburza.sylius.article.backend.articles'));
 
-        $menu['content']
-            ->addChild('webburza_sylius_article_categories', array(
-                'route'           => 'webburza_article_category_index',
-                'labelAttributes' => array('icon' => 'glyphicon glyphicon-tags'),
-            ))
-            ->setLabel($this->translator->trans('webburza.sylius.article_category.backend.article_categories'));
+            $menu['content']
+                ->addChild('webburza_sylius_article_categories', array(
+                    'route'           => 'webburza_article_category_index',
+                    'labelAttributes' => array('icon' => 'glyphicon glyphicon-tags'),
+                ))
+                ->setLabel($this->translator->trans('webburza.sylius.article_category.backend.article_categories'));
+        }
     }
 }

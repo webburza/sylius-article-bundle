@@ -16,30 +16,30 @@ class ArticleTranslationType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', Type\TextType::class, [
+        $builder->add('title', 'text', [
             'label' => 'webburza.sylius.article.label.title'
         ]);
 
-        $builder->add('lead', Type\TextareaType::class, [
+        $builder->add('lead', 'textarea', [
             'label' => 'webburza.sylius.article.label.lead',
             'attr' => ['rows' => 4]
         ]);
 
-        $builder->add('content', Type\TextareaType::class, [
+        $builder->add('content', 'textarea', [
             'label' => 'webburza.sylius.article.label.content',
             'attr' => ['class' => 'ckeditor']
         ]);
 
-        $builder->add('active', Type\CheckboxType::class, [
+        $builder->add('active', 'checkbox', [
             'label' => 'webburza.sylius.article.label.active'
         ]);
 
-        $builder->add('metaKeywords', Type\TextareaType::class, [
+        $builder->add('metaKeywords', 'textarea', [
             'label' => 'webburza.sylius.article.label.meta_keywords',
             'attr' => ['rows' => 2]
         ]);
 
-        $builder->add('metaDescription', Type\TextareaType::class, [
+        $builder->add('metaDescription', 'textarea', [
             'label' => 'webburza.sylius.article.label.meta_description',
             'attr' => ['rows' => 2]
         ]);
