@@ -25,7 +25,7 @@ class ArticleTranslationType extends AbstractResourceType
             'attr' => ['rows' => 4]
         ]);
 
-        $builder->add('content', 'text', [
+        $builder->add('content', 'textarea', [
             'label' => 'webburza.sylius.article.label.content',
             'attr' => ['class' => 'ckeditor']
         ]);
