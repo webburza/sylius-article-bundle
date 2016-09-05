@@ -303,7 +303,7 @@ class Article implements ArticleInterface
      * @param ArticleCategoryInterface $category
      * @return ArticleInterface
      */
-    public function setCategory(ArticleCategoryInterface $category)
+    public function setCategory(ArticleCategoryInterface $category = null)
     {
         $this->category = $category;
 
