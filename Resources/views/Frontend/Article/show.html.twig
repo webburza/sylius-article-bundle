@@ -32,7 +32,7 @@
 
             {% if article.image %}
                 <img class="ui segment fluid image"
-                     src="{{ article.image.path | imagine_filter('sylius_large') }}" alt="">
+                     src="{{ article.image.path | imagine_filter('webburza_article_cover') }}" alt="">
             {% endif %}
 
             <div class="ui segment">

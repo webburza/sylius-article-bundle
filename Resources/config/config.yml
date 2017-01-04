@@ -18,7 +18,6 @@ sylius_resource:
 
         webburza_article.article_category:
             classes:
-                controller: '%webburza_article.controller.article_category.class%'
                 repository: '%webburza_article.repository.article_category.class%'
                 model: '%webburza_article.model.article_category.class%'
                 form: '%webburza_article.form.type.article_category.class%'
@@ -59,3 +58,6 @@ liip_imagine:
         webburza_article_thumbnail:
             filters:
                 thumbnail: { size: [260, 260], mode: outbound }
+        webburza_article_cover:
+            filters:
+                thumbnail: { size: [640, 260], mode: outbound }

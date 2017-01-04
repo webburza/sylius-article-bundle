@@ -12,7 +12,6 @@ parameters:
 
     # Repositories
     webburza_article.repository.article.class: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleRepository
-    webburza_article.repository.article_category.class: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleCategoryRepository
 
     # Listeners
     webburza_article.listener.menu_builder.class: Webburza\Sylius\ArticleBundle\EventListener\MenuBuilderListener

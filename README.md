@@ -4,9 +4,9 @@ This bundle extends the Sylius e-commerce platform with Article resource, which 
 publish news, articles, or as a blog. It comes with full multilingual support, the ability to
 group articles into categories, and the ability to set related products for articles.
 
-[<img title="Single Article" src="http://i.imgur.com/lfP83VR.jpg" width="235">](http://i.imgur.com/lfP83VR.jpg)
-[<img title="Single Article in CMS" src="http://i.imgur.com/H2L9ziy.jpg" width="235">](http://i.imgur.com/H2L9ziy.jpg)
-[<img title="Article Listing in CMS" src="http://i.imgur.com/zjFYdyN.png" width="235">](http://i.imgur.com/zjFYdyN.png)
+[<img title="Edit Article" src="http://i.imgur.com/Odpgjg6.png" height="170">](http://i.imgur.com/nNT1UGR.png)
+[<img title="Article Listing" src="http://i.imgur.com/avl1pls.png" height="170">](http://i.imgur.com/kVjHfIj.png)
+[<img title="Single Article" src="http://i.imgur.com/BkTMaBn.png" height="170">](http://i.imgur.com/swCDPI2.png)
 
 ---
 
@@ -35,18 +35,18 @@ group articles into categories, and the ability to set related products for arti
 
   ```yaml
   imports:
-      - { resource: @WebburzaSyliusArticleBundle/Resources/config/config.yml }
+      - { resource: "@WebburzaSyliusArticleBundle/Resources/config/config.yml" }
   ```
 
   4. register routes in `app/config/routing.yml`
 
   ```yaml
-  webburza_sylius_article_bundle:
+  webburza_article:
       resource: "@WebburzaSyliusArticleBundle/Resources/config/routing.yml"
-
-  webburza_sylius_article_bundle_front:
+  
+  webburza_article_front:
       resource: "@WebburzaSyliusArticleBundle/Resources/config/routingFront.yml"
-      prefix: /articles
+      prefix:  /articles
   ```
 
   As you can see, there are two groups of routes, the main resource (administration) routes,
@@ -54,16 +54,18 @@ group articles into categories, and the ability to set related products for arti
   set the prefix for the routes here, changing it to `/blog`, or `/news`.
 
   5. The bundle should now be fully integrated, but it still requires
-database tables to be created and RBAC permissions set. To ease this
-process, after you've integrated the bundle you can run the
-following command:
+database tables to be created. For this, we recommend using migrations.
 
   ```bash
-  $ app/console webburza:sylius-article-bundle:install
+  $ bin/console doctrine:migrations:diff
+  $ bin/console doctrine:migrations:migrate
   ```
-
-  This will create all the required database tables, prefixed with `webburza_`,
-and all the RBAC permissions, under the existing 'content' node.
+  
+  Or if you don't use migrations, you can update the database schema directly.
+  
+  ```bash
+    $ bin/console doctrine:schema:update
+  ```
 
 ## Configuration
 
@@ -113,4 +115,4 @@ This bundle is available under the [MIT license](LICENSE).
 
 ## To-do
 
-- Tests
+- Automated tests
