@@ -1,0 +1,57 @@
+sylius_grid:
+    grids:
+        webburza_article_category_admin:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%webburza_article.model.article_category.class%"
+                    repository:
+                        method: createListQueryBuilder
+                        arguments: ["%locale%"]
+            sorting:
+                createdAt: desc
+            fields:
+                id:
+                    type: string
+                    label: webburza_article.article_category.label.id
+                    sortable: ~
+                title:
+                    type: string
+                    label: webburza_article.article_category.label.title
+                    sortable: translation.title
+                published:
+                    type: twig
+                    label: webburza_article.article_category.label.published
+                    sortable: ~
+                    options:
+                        template: SyliusUiBundle:Grid/Field:yesNo.html.twig
+                createdAt:
+                    type: datetime
+                    label: webburza_article.article_category.label.created_at
+                    sortable: ~
+                    options:
+                        format: 'd-m-Y H:i'
+                updatedAt:
+                    type: datetime
+                    label: webburza_article.article_category.label.updated_at
+                    sortable: ~
+                    options:
+                        format: 'd-m-Y H:i'
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                title:
+                    type: string
+                    label: webburza_article.article_category.label.title
+                    options:
+                        fields: [translation.title]
+                published:
+                    type: boolean
+                    label: webburza_article.article_category.label.published

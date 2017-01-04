@@ -1,0 +1,3 @@
+imports:
+    - { resource: "grids/article.yml" }
+    - { resource: "grids/articleCategory.yml" }

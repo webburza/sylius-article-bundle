@@ -1,0 +1,5 @@
+{% if data.image is not null %}
+    <a href="{{ path('webburza_article_frontend_show', {slug: data.slug}) }}" target="_blank">
+        <img src="{{ data.image.path | imagine_filter('sylius_medium') }}" alt="" class="ui small bordered image" />
+    </a>
+{% endif %}

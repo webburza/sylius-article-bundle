@@ -1,0 +1,5 @@
+{% if data.published %}
+    <a href="{{ path('webburza_article_frontend_show', {slug: data.slug}) }}" target="_blank">{{ data.title }}</a>
+{% else %}
+    {{ data.title }}
+{% endif %}

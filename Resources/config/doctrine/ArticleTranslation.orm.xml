@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Webburza\Sylius\ArticleBundle\Model\ArticleTranslation" table="webburza_article_translation">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="title" column="title" type="string" nullable="true"/>
+
+        <field name="slug" column="slug" type="string">
+            <gedmo:slug fields="title" unique-base="locale" />
+        </field>
+
+        <field name="lead" column="lead" type="text" length="65535" nullable="true"/>
+        <field name="content" column="content" type="text" length="65535" nullable="true"/>
+        <field name="metaKeywords" column="meta_keywords" type="text" length="65535" nullable="true"/>
+        <field name="metaDescription" column="meta_description" type="text" length="65535" nullable="true"/>
+
+        <field name="active" column="active" type="boolean" nullable="false" />
+
+    </mapped-superclass>
+
+</doctrine-mapping>

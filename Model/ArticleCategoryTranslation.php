@@ -1,44 +1,25 @@
 <?php
 
-namespace Webburza\Sylius\ArticleBundle\Entity;
+namespace Webburza\Sylius\ArticleBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\AbstractTranslation;
 use Symfony\Component\Validator\Constraints as Assert;
-use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryTranslationInterface;
-use Webburza\Sylius\ArticleBundle\Validator\Constraints;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * Article
- *
- * @ORM\Table(name="webburza_sylius_article_category_translation")
- * @ORM\Entity()
- */
 class ArticleCategoryTranslation extends AbstractTranslation implements ArticleCategoryTranslationInterface
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
     protected $title;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
-     * @Gedmo\Slug(fields={"title"}, unique_base="locale")
      */
     protected $slug;
 
@@ -60,6 +41,7 @@ class ArticleCategoryTranslation extends AbstractTranslation implements ArticleC
 
     /**
      * @param string $title
+     *
      * @return ArticleCategoryTranslationInterface
      */
     public function setTitle($title)
@@ -79,6 +61,7 @@ class ArticleCategoryTranslation extends AbstractTranslation implements ArticleC
 
     /**
      * @param string $slug
+     *
      * @return ArticleCategoryTranslationInterface
      */
     public function setSlug($slug)

@@ -1,44 +1,61 @@
+imports:
+    - { resource: "parameters.yml" }
+    - { resource: "services.yml" }
+    - { resource: "grids.yml" }
+
 sylius_resource:
     resources:
-        webburza.article:
+        webburza_article.article:
             classes:
-                controller: Webburza\Sylius\ArticleBundle\Controller\ArticleController
-                repository: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleRepository
-                model: Webburza\Sylius\ArticleBundle\Entity\Article
-                form:
-                    default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleType
+                controller: '%webburza_article.controller.article.class%'
+                repository: '%webburza_article.repository.article.class%'
+                model: '%webburza_article.model.article.class%'
+                form: '%webburza_article.form.type.article.class%'
             translation:
                 classes:
-                    model: Webburza\Sylius\ArticleBundle\Entity\ArticleTranslation
-                    form:
-                        default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleTranslationType
+                    model: '%webburza_article.model.article_translation.class%'
+                    form: '%webburza_article.form.type.article_translation.class%'
 
-        webburza.article_category:
+        webburza_article.article_category:
             classes:
-                controller: Webburza\Sylius\ArticleBundle\Controller\ArticleCategoryController
-                repository: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleCategoryRepository
-                model: Webburza\Sylius\ArticleBundle\Entity\ArticleCategory
-                form:
-                    default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryType
+                controller: '%webburza_article.controller.article_category.class%'
+                repository: '%webburza_article.repository.article_category.class%'
+                model: '%webburza_article.model.article_category.class%'
+                form: '%webburza_article.form.type.article_category.class%'
             translation:
                 classes:
-                    model: Webburza\Sylius\ArticleBundle\Entity\ArticleCategoryTranslation
-                    form:
-                        default: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryTranslationType
+                    model: '%webburza_article.model.article_category_translation.class%'
+                    form: '%webburza_article.form.type.article_category_translation.class%'
 
-        webburza.article_image:
+        webburza_article.article_image:
             classes:
-                model: Webburza\Sylius\ArticleBundle\Entity\ArticleImage
+                model: '%webburza_article.model.article_image.class%'
 
 doctrine:
     orm:
         resolve_target_entities:
-            Webburza\Sylius\ArticleBundle\Model\ArticleImageInterface: %webburza.model.article_image.class%
-            Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface: %webburza.model.article_category.class%
-            Webburza\Sylius\ArticleBundle\Model\ArticleInterface: %webburza.model.article.class%
-            Sylius\Component\Core\Model\ProductInterface: %sylius.model.product.class%
+            Webburza\Sylius\ArticleBundle\Model\ArticleImageInterface: '%webburza_article.model.article_image.class%'
+            Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface: '%webburza_article.model.article_category.class%'
+            Webburza\Sylius\ArticleBundle\Model\ArticleInterface: '%webburza_article.model.article.class%'
+            Sylius\Component\Core\Model\ProductInterface: '%sylius.model.product.class%'
+
+        entity_managers:
+            default:
+                mappings:
+                    WebburzaSyliusArticleBundle:
+                        type: xml
+                        prefix: Webburza\Sylius\ArticleBundle\Model
+                        dir: 'Resources/config/doctrine'
+                        is_bundle: true
+                        mapping: true
 
 webburza_sylius_article:
     file_browser:
         browse_url: ""
         upload_url: ""
+
+liip_imagine:
+    filter_sets:
+        webburza_article_thumbnail:
+            filters:
+                thumbnail: { size: [260, 260], mode: outbound }

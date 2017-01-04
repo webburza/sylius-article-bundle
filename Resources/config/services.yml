@@ -1,44 +1,80 @@
 services:
-    webburza.sylius.article.listener.menu_builder:
-        class: Webburza\Sylius\ArticleBundle\EventListener\MenuBuilderListener
-        arguments: [@translator]
+    webburza_article.listener.menu_builder:
+        class: '%webburza_article.listener.menu_builder.class%'
         tags:
-            - { name: kernel.event_listener, event: sylius.menu_builder.backend.main, method: addBackendMenuItems }
-            - { name: kernel.event_listener, event: sylius.menu_builder.backend.sidebar, method: addBackendMenuItems }
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addBackendMenuItems }
 
-    webburza.sylius.article.listener.front_menu_builder:
-        class: Webburza\Sylius\ArticleBundle\EventListener\FrontendMenuBuilderListener
-        arguments: [@translator]
+    webburza_article.listener.published:
+        class: '%webburza_article.listener.published.class%'
         tags:
-            - { name: kernel.event_listener, event: sylius.menu_builder.frontend.main, method: addFrontendMenuItems }
+            - { name: kernel.event_listener, event: webburza_article.article.pre_create, method: setPublishedAt }
+            - { name: kernel.event_listener, event: webburza_article.article.pre_update, method: setPublishedAt }
 
-    webburza.sylius.article.listener.published:
-        class: Webburza\Sylius\ArticleBundle\EventListener\PublishedListener
+    webburza_article.listener.image_upload:
+        class: '%webburza_article.listener.image_upload.class%'
+        arguments:
+            - '@sylius.image_uploader'
         tags:
-            - { name: kernel.event_listener, event: webburza.article.pre_create, method: setPublishedAt }
-            - { name: kernel.event_listener, event: webburza.article.pre_update, method: setPublishedAt }
+            - { name: kernel.event_listener, event: webburza_article.article.pre_create, method: uploadArticleImage }
+            - { name: kernel.event_listener, event: webburza_article.article.pre_update, method: uploadArticleImage }
 
-    webburza.sylius.article.listener.image_upload:
-        class: Webburza\Sylius\ArticleBundle\EventListener\ImageUploadListener
-        arguments: [@sylius.image_uploader]
-        tags:
-            - { name: kernel.event_listener, event: webburza.article.pre_create, method: uploadArticleImage }
-            - { name: kernel.event_listener, event: webburza.article.pre_update, method: uploadArticleImage }
-
-    webburza.sylius.article.form.type.article_image:
-        class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleImageType
-        tags:
-            - { name: form.type, alias: webburza_article_image }
-        arguments: [Webburza\Sylius\ArticleBundle\Entity\ArticleImage]
-
-    webburza.sylius.article.form.type.article_category_choice:
-        class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryChoiceType
+    webburza_article.form.type.article_category_choice:
+        class: '%webburza_article.form.type.article_category_choice.class%'
+        arguments:
+            - '@webburza_article.repository.article_category'
         tags:
             - { name: form.type, alias: webburza_article_category_choice }
-        arguments: [@webburza.repository.article_category]
 
-    webburza.sylius.article.form.type.product_choice:
-        class: Webburza\Sylius\ArticleBundle\Form\Type\ProductChoiceType
+    webburza_article.form.type.product_choice:
+        class: '%webburza_article.form.type.product_choice.class%'
+        arguments:
+            - '@sylius.repository.product'
         tags:
             - { name: form.type, alias: webburza_article_product_choice }
-        arguments: [@sylius.repository.product]
+
+    webburza_article.form.type.article_image:
+        class: '%webburza_article.form.type.article_image.class%'
+        arguments:
+            - '%webburza_article.model.article_image.class%'
+        tags:
+            - { name: form.type, alias: webburza_article_image }
+
+    webburza_article.form.type.article:
+        class: '%webburza_article.form.type.article.class%'
+        arguments:
+            - '%webburza_article.model.article.class%'
+        tags:
+            - { name: form.type, alias: webburza_article }
+
+    webburza_article.form.type.article_translation:
+        class: '%webburza_article.form.type.article_translation.class%'
+        arguments:
+            - '%webburza_article.model.article_translation.class%'
+        tags:
+            - { name: form.type, alias: webburza_article_translation }
+
+    webburza_article.form.type.article_category:
+        class: '%webburza_article.form.type.article_category.class%'
+        arguments:
+            - '%webburza_article.model.article_category.class%'
+        tags:
+            - { name: form.type, alias: webburza_article_category }
+
+    webburza_article.form.type.article_category_translation:
+        class: '%webburza_article.form.type.article_category_translation.class%'
+        arguments:
+            - '%webburza_article.model.article_category_translation.class%'
+        tags:
+            - { name: form.type, alias: webburza_article_category_translation }
+
+    webburza_article.form.extension.article_translation_active:
+        class: '%webburza_article.form.extension.article_translation_active.class%'
+        arguments:
+            - "@=service('sylius.locale_provider').getAvailableLocalesCodes()"
+        tags:
+            - { name: form.type_extension, extended_type: '%webburza_article.form.type.article_translation.class%' }
+
+    webburza_article.form.extension.article_image_remove:
+        class: '%webburza_article.form.extension.article_image_remove.class%'
+        tags:
+            - { name: form.type_extension, extended_type: '%webburza_article.form.type.article.class%' }

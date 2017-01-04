@@ -1,101 +1,57 @@
 <?php
 
-namespace Webburza\Sylius\ArticleBundle\Entity;
+namespace Webburza\Sylius\ArticleBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\Timestampable;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Symfony\Component\Validator\Constraints as Assert;
-use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
-use Webburza\Sylius\ArticleBundle\Model\ArticleImageInterface;
-use Webburza\Sylius\ArticleBundle\Model\ArticleInterface;
 use Webburza\Sylius\ArticleBundle\Validator\Constraints;
 
 /**
- * Article
- *
- * @ORM\Table(name="webburza_sylius_article")
- * @ORM\Entity()
  * @Constraints\HasActiveTranslation()
  */
 class Article implements ArticleInterface
 {
+    use Timestampable;
+
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
     }
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="published", type="boolean")
      */
     protected $published;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="featured", type="boolean")
      */
     protected $featured;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
-    protected $publishedAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="create")
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="update")
-     */
-    protected $updatedAt;
+    protected $publishedAt = null;
 
     /**
      * @var ArticleImageInterface
-     * @ORM\OneToOne(targetEntity="Webburza\Sylius\ArticleBundle\Model\ArticleImageInterface", mappedBy="article", cascade={"persist", "remove"})
      */
     protected $image;
 
     /**
      * @var ArticleCategoryInterface
-     * @ORM\ManyToOne(targetEntity="Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface", inversedBy="articles")
      */
     protected $category;
 
     /**
      * @var ProductInterface[]
-     *
-     * @ORM\ManyToMany(targetEntity="Sylius\Component\Core\Model\ProductInterface")
-     * @ORM\JoinTable(name="webburza_sylius_article_product",
-     *      joinColumns={
-     *          @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     *      },
-     *      inverseJoinColumns={
-     *          @ORM\JoinColumn(name="article_id", referencedColumnName="id", unique=true)
-     *      }
-     * )
      */
     protected $products;
 
@@ -121,7 +77,7 @@ class Article implements ArticleInterface
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getTranslation()->getTitle();
     }
 
     /**
@@ -129,7 +85,7 @@ class Article implements ArticleInterface
      */
     public function getSlug()
     {
-        return $this->translate()->getSlug();
+        return $this->getTranslation()->getSlug();
     }
 
     /**
@@ -137,7 +93,7 @@ class Article implements ArticleInterface
      */
     public function getLead()
     {
-        return $this->translate()->getLead();
+        return $this->getTranslation()->getLead();
     }
 
     /**
@@ -145,7 +101,7 @@ class Article implements ArticleInterface
      */
     public function getContent()
     {
-        return $this->translate()->getContent();
+        return $this->getTranslation()->getContent();
     }
 
     /**
@@ -158,6 +114,7 @@ class Article implements ArticleInterface
 
     /**
      * @param boolean $published
+     *
      * @return ArticleInterface
      */
     public function setPublished($published)
@@ -177,6 +134,7 @@ class Article implements ArticleInterface
 
     /**
      * @param boolean $featured
+     *
      * @return ArticleInterface
      */
     public function setFeatured($featured)
@@ -196,49 +154,12 @@ class Article implements ArticleInterface
 
     /**
      * @param \DateTime $publishedAt
+     *
      * @return ArticleInterface
      */
-    public function setPublishedAt($publishedAt)
+    public function setPublishedAt(\DateTime $publishedAt = null)
     {
         $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     * @return ArticleInterface
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     * @return ArticleInterface
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -253,12 +174,12 @@ class Article implements ArticleInterface
 
     /**
      * @param ArticleImageInterface $image
+     *
      * @return ArticleInterface
      */
     public function setImage(ArticleImageInterface $image)
     {
         $this->image = $image;
-        $image->setArticle($this);
 
         return $this;
     }
@@ -280,7 +201,7 @@ class Article implements ArticleInterface
      */
     public function getMetaKeywords()
     {
-        return $this->translate()->getMetaKeywords();
+        return $this->getTranslation()->getMetaKeywords();
     }
 
     /**
@@ -288,7 +209,7 @@ class Article implements ArticleInterface
      */
     public function getMetaDescription()
     {
-        return $this->translate()->getMetaDescription();
+        return $this->getTranslation()->getMetaDescription();
     }
 
     /**
@@ -301,6 +222,7 @@ class Article implements ArticleInterface
 
     /**
      * @param ArticleCategoryInterface $category
+     *
      * @return ArticleInterface
      */
     public function setCategory(ArticleCategoryInterface $category = null)
@@ -320,6 +242,7 @@ class Article implements ArticleInterface
 
     /**
      * @param ArrayCollection $products
+     *
      * @return ArticleInterface
      */
     public function setProducts(ArrayCollection $products)
@@ -331,6 +254,7 @@ class Article implements ArticleInterface
 
     /**
      * @param ProductInterface $product
+     *
      * @return ArticleInterface
      */
     public function addProduct(ProductInterface $product)
@@ -342,6 +266,7 @@ class Article implements ArticleInterface
 
     /**
      * @param ProductInterface $product
+     *
      * @return ArticleInterface
      */
     public function removeProduct(ProductInterface $product)
@@ -349,5 +274,13 @@ class Article implements ArticleInterface
         $this->products->removeElement($product);
 
         return $this;
+    }
+
+    /**
+     * @return ArticleTranslationInterface
+     */
+    public function createTranslation()
+    {
+        return new ArticleTranslation();
     }
 }

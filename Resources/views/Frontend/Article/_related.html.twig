@@ -1,0 +1,15 @@
+<h2 class="ui horizontal section divider header">
+    {{ 'webburza_article.ui.related_articles'|trans }}
+</h2>
+
+<div class="ui four column stackable grid">
+    <div class="row">
+        {% for article in articles %}
+            {% include 'WebburzaSyliusArticleBundle:Frontend/Article:_card.html.twig' %}
+        {% if 0 == loop.index % 4 %}
+    </div>
+    <div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>

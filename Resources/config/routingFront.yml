@@ -6,16 +6,16 @@ webburza_article_frontend_index:
     path: /
     methods: [GET]
     defaults:
-        _controller: webburza.controller.article:indexFrontAction
+        _controller: webburza_article.controller.article:indexFrontAction
 
 webburza_article_frontend_show:
     path: /{slug}/
     methods: [GET]
     defaults:
-        _controller: webburza.controller.article:showFrontAction
+        _controller: webburza_article.controller.article:showFrontAction
 
-webburza_article_category_frontend_show:
-    path: /category/{slug}/
+webburza_article_frontend_index_by_category:
+    path: /category/{categorySlug}/
     methods: [GET]
     defaults:
-        _controller: webburza.controller.article_category:showFrontAction
+        _controller: webburza_article.controller.article:indexFrontAction
