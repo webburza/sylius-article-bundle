@@ -8,10 +8,10 @@ parameters:
 
     # Controllers
     webburza_article.controller.article.class: Webburza\Sylius\ArticleBundle\Controller\ArticleController
-    webburza_article.controller.article_category.class: Webburza\Sylius\ArticleBundle\Controller\ArticleCategoryController
 
     # Repositories
     webburza_article.repository.article.class: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleRepository
+    webburza_article.repository.article_category.class: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleCategoryRepository
 
     # Listeners
     webburza_article.listener.menu_builder.class: Webburza\Sylius\ArticleBundle\EventListener\MenuBuilderListener
