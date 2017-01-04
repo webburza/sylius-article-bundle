@@ -3,10 +3,10 @@
 namespace Webburza\Sylius\ArticleBundle\Form\Type;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleCategoryTranslationType extends AbstractResourceType
+final class ArticleCategoryTranslationType extends AbstractResourceType
 {
     /**
      * Build the Article Category Translation form
@@ -16,11 +16,14 @@ class ArticleCategoryTranslationType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', 'text', [
-            'label' => 'webburza.sylius.article_category.label.title'
+        $builder->add('title', TextType::class, [
+            'label' => 'webburza_article.article_category.label.title'
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'webburza_article_category_translation';

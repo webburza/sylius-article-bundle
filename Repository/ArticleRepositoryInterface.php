@@ -1,27 +1,38 @@
 <?php
 
-namespace Webburza\Sylius\ArticleBundle\Model;
+namespace Webburza\Sylius\ArticleBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
+use Webburza\Sylius\ArticleBundle\Model\ArticleInterface;
 
 interface ArticleRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * @param string $locale
+     *
+     * @return QueryBuilder
+     */
+    public function createListQueryBuilder($locale);
+
     /**
      * Get publicly visible articles
      *
      * @param $locale
      * @param ArticleCategoryInterface|null $category
+     *
      * @return mixed|\Pagerfanta\Pagerfanta
      */
     public function getPublicPaginatorForLocale($locale, ArticleCategoryInterface $category = null);
 
     /**
-     * Find a publicly visible article by a slug, for the provided locale.
+     * Find an article by a slug, for the provided locale.
      *
      * @param $slug
      * @param $locale
      *
-     * @return ArticleInterface|null
+     * @return null|ArticleInterface
      */
     public function findPublicBySlug($slug, $locale);
 

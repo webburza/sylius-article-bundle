@@ -2,55 +2,41 @@
 #  BACKEND
 # ------------------------------------------------------------------------------
 
-webburza_article_category:
-    resource: |
-        alias: webburza.article_category
-        templates: WebburzaSyliusArticleBundle:Backend/Category
-        except: ['index']
-    type: sylius.resource
-    prefix: /administration
-
-webburza_article_category_index:
-    path: /administration/article-categories/
-    methods: [GET]
-    defaults:
-        _controller: webburza.controller.article_category:indexAction
-        _sylius:
-            template: WebburzaSyliusArticleBundle:Backend/Category:index.html.twig
-            sortable: true
-            paginate: 10
-
 webburza_article:
     resource: |
-        alias: webburza.article
-        templates: WebburzaSyliusArticleBundle:Backend/Article
-        except: ['index']
+        alias: webburza_article.article
+        templates: SyliusAdminBundle:Crud
+        except: ['show']
+        redirect: update
+        grid: webburza_article_admin
+        section: admin
+        vars:
+            all:
+                header: webburza_article.ui.articles
+                subheader: webburza_article.ui.manage_articles
+                templates:
+                    form: WebburzaSyliusArticleBundle:Backend/Article:_form.html.twig
     type: sylius.resource
-    prefix: /administration
+    prefix: /admin
     defaults:
-        browse_url: %webburza.sylius.article_bundle.file_browser.browse_url%
-        upload_url: %webburza.sylius.article_bundle.file_browser.upload_url%
+        browseUrl:  '%webburza.sylius.article_bundle.file_browser.browse_url%'
+        uploadUrl: '%webburza.sylius.article_bundle.file_browser.upload_url%'
 
-webburza_article_index:
-    path: /administration/articles/
-    methods: [GET]
-    defaults:
-        _controller: webburza.controller.article:indexAction
-        _sylius:
-            template: WebburzaSyliusArticleBundle:Backend/Article:index.html.twig
-            sortable: true
-            paginate: 10
-            sorting:
-                published: asc
-                publishedAt: desc
-                createdAt: desc
-
-webburza_article_image_delete:
-    path: /administration/article-image/{id}
-    methods: [DELETE]
-    defaults:
-        _controller: webburza.controller.article_image:deleteAction
-        _sylius:
-            redirect:
-                route: webburza_article_show
-                parameters: { id: $articleId }
+webburza_article_category:
+    resource: |
+        alias: webburza_article.article_category
+        templates: SyliusAdminBundle:Crud
+        except: ['show']
+        redirect: update
+        grid: webburza_article_category_admin
+        section: admin
+        vars:
+            all:
+                header: webburza_article.ui.article_categories
+                subheader: webburza_article.ui.manage_article_categories
+                templates:
+                    form: WebburzaSyliusArticleBundle:Backend/ArticleCategory:_form.html.twig
+            index:
+                icon: tags
+    type: sylius.resource
+    prefix: /admin

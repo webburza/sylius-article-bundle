@@ -3,10 +3,12 @@
 namespace Webburza\Sylius\ArticleBundle\Form\Type;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleTranslationType extends AbstractResourceType
+final class ArticleTranslationType extends AbstractResourceType
 {
     /**
      * Build the Article form
@@ -16,32 +18,36 @@ class ArticleTranslationType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', 'text', [
-            'label' => 'webburza.sylius.article.label.title'
+        $builder->add('title', TextType::class, [
+            'label' => 'webburza_article.article.label.title'
         ]);
 
-        $builder->add('lead', 'textarea', [
-            'label' => 'webburza.sylius.article.label.lead',
-            'attr' => ['rows' => 4]
+        $builder->add('lead', TextareaType::class, [
+            'label' => 'webburza_article.article.label.lead',
+            'attr'  => ['rows' => 4],
+            'required' => false
         ]);
 
-        $builder->add('content', 'textarea', [
-            'label' => 'webburza.sylius.article.label.content',
-            'attr' => ['class' => 'ckeditor']
+        $builder->add('content', TextareaType::class, [
+            'label' => 'webburza_article.article.label.content',
+            'attr'  => ['class' => 'ckeditor']
         ]);
 
-        $builder->add('active', 'checkbox', [
-            'label' => 'webburza.sylius.article.label.active'
+        $builder->add('metaKeywords', TextareaType::class, [
+            'label' => 'webburza_article.article.label.meta_keywords',
+            'attr'  => ['rows' => 2],
+            'required' => false
         ]);
 
-        $builder->add('metaKeywords', 'textarea', [
-            'label' => 'webburza.sylius.article.label.meta_keywords',
-            'attr' => ['rows' => 2]
+        $builder->add('metaDescription', TextareaType::class, [
+            'label' => 'webburza_article.article.label.meta_description',
+            'attr'  => ['rows' => 2],
+            'required' => false
         ]);
 
-        $builder->add('metaDescription', 'textarea', [
-            'label' => 'webburza.sylius.article.label.meta_description',
-            'attr' => ['rows' => 2]
+        $builder->add('active', CheckboxType::class, [
+            'label' => 'webburza_article.article.label.active',
+            'data'  => true
         ]);
     }
 

@@ -1,63 +1,39 @@
-webburza:
-    sylius:
-        article:
-            backend:
-                articles: Articles
-            frontend:
-                articles: Articles
-                latest_from_category: 'Latest from category'
-                related_articles: 'Related articles'
-                latest_articles: 'Latest articles'
-            breadcrumb:
-                index: Articles
-            index_header: Articles
-            create_header: New article
-            update_header: Editing article
-            show_header: Article details
-            create: Create article
-            open: Open
-            no_results: No articles found.
-            translations: Translations
-            general_info: General info
-            related_products: Related products
-            back_to_all: back to all articles
-            delete_image: Delete image
-            label:
-                id: '#ID'
-                title: Title
-                lead: Lead
-                content: Content
-                active: Active?
-                meta_keywords: Meta Keywords
-                meta_description: Meta Description
-                cover_image: Cover Image
-                published_at: Published At
-                published: Published?
-                featured: Featured?
-                created_at: Created At
-                updated_at: Updated At
-                products: Related products
-                choose_products: Choose products...
-                category: Category
-                choose_category: Choose a category...
-                file: File
-        article_category:
-            backend:
-                article_categories: Article Categories
-            breadcrumb:
-                index: Article Categories
-            index_header: Article Categories
-            create_header: New category
-            update_header: Editing category
-            show_header: Category details
-            create: Create category
-            open: Open
-            no_results: No categories found.
-            translations: Translations
-            general_info: General info
-            label:
-                id: '#ID'
-                title: Title
-                published: Published?
-                created_at: Created At
-                updated_at: Updated At
+webburza_article:
+    ui:
+        article: Article
+        articles: Articles
+        article_category: Article category
+        article_categories: Article categories
+        latest_from_category: Latest from category
+        related_articles: Related articles
+        related_products: Related products
+        content: Content
+        manage_articles: Manage articles
+        manage_article_categories: Manage article categories
+    article:
+        label:
+            id: Id
+            title: Title
+            lead: Lead
+            content: Content
+            active: Active?
+            meta_keywords: Meta Keywords
+            meta_description: Meta Description
+            cover_image: Cover Image
+            published_at: Published At
+            published: Published?
+            featured: Featured?
+            created_at: Created At
+            updated_at: Updated At
+            products: Related products
+            choose_products: Choose products...
+            category: Category
+            choose_category: Choose a category...
+            file: File
+    article_category:
+        label:
+            id: Id
+            title: Title
+            published: Published?
+            created_at: Created At
+            updated_at: Updated At

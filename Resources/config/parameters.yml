@@ -1,0 +1,32 @@
+parameters:
+    # Models
+    webburza_article.model.article.class: Webburza\Sylius\ArticleBundle\Model\Article
+    webburza_article.model.article_translation.class: Webburza\Sylius\ArticleBundle\Model\ArticleTranslation
+    webburza_article.model.article_category.class: Webburza\Sylius\ArticleBundle\Model\ArticleCategory
+    webburza_article.model.article_category_translation.class: Webburza\Sylius\ArticleBundle\Model\ArticleCategoryTranslation
+    webburza_article.model.article_image.class: Webburza\Sylius\ArticleBundle\Model\ArticleImage
+
+    # Controllers
+    webburza_article.controller.article.class: Webburza\Sylius\ArticleBundle\Controller\ArticleController
+    webburza_article.controller.article_category.class: Webburza\Sylius\ArticleBundle\Controller\ArticleCategoryController
+
+    # Repositories
+    webburza_article.repository.article.class: Webburza\Sylius\ArticleBundle\Doctrine\ORM\ArticleRepository
+
+    # Listeners
+    webburza_article.listener.menu_builder.class: Webburza\Sylius\ArticleBundle\EventListener\MenuBuilderListener
+    webburza_article.listener.published.class: Webburza\Sylius\ArticleBundle\EventListener\PublishedListener
+    webburza_article.listener.image_upload.class: Webburza\Sylius\ArticleBundle\EventListener\ImageUploadListener
+
+    # Form Types
+    webburza_article.form.type.article.class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleType
+    webburza_article.form.type.article_translation.class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleTranslationType
+    webburza_article.form.type.article_category.class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryType
+    webburza_article.form.type.article_category_translation.class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryTranslationType
+    webburza_article.form.type.article_image.class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleImageType
+    webburza_article.form.type.article_category_choice.class: Webburza\Sylius\ArticleBundle\Form\Type\ArticleCategoryChoiceType
+    webburza_article.form.type.product_choice.class: Webburza\Sylius\ArticleBundle\Form\Type\ProductChoiceType
+
+    # Form Extensions
+    webburza_article.form.extension.article_translation_active.class: Webburza\Sylius\ArticleBundle\Form\Extension\ArticleTranslationActiveExtension
+    webburza_article.form.extension.article_image_remove.class: Webburza\Sylius\ArticleBundle\Form\Extension\ArticleImageRemoveExtension

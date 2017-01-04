@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Webburza\Sylius\ArticleBundle\Model\Article" table="webburza_article">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="published" column="published" type="boolean" nullable="false"/>
+        <field name="featured" column="featured" type="boolean" nullable="false"/>
+        <field name="publishedAt" column="published_at" type="datetime" nullable="true" />
+
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+        <one-to-one field="image" target-entity="Webburza\Sylius\ArticleBundle\Model\ArticleImage">
+            <join-column name="image_id" referenced-column-name="id"/>
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-one>
+
+        <many-to-one field="category" target-entity="Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface" inversed-by="articles" />
+
+        <many-to-many field="products" target-entity="Sylius\Component\Core\Model\ProductInterface">
+            <join-table name="webburza_article_product">
+                <join-columns>
+                    <join-column name="product_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="article_id" referenced-column-name="id" nullable="false" unique="true" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+    </mapped-superclass>
+
+</doctrine-mapping>

@@ -14,6 +14,7 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     /**
      * @param string $title
+     *
      * @return ArticleTranslationInterface
      */
     public function setTitle($title);
@@ -25,6 +26,7 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     /**
      * @param string $slug
+     *
      * @return ArticleTranslationInterface
      */
     public function setSlug($slug);
@@ -36,6 +38,7 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     /**
      * @param string $lead
+     *
      * @return ArticleTranslationInterface
      */
     public function setLead($lead);
@@ -47,6 +50,7 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     /**
      * @param string $content
+     *
      * @return ArticleTranslationInterface
      */
     public function setContent($content);
@@ -58,6 +62,7 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     /**
      * @param boolean $active
+     *
      * @return ArticleTranslationInterface
      */
     public function setActive($active);
@@ -69,6 +74,7 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     /**
      * @param string $metaKeywords
+     *
      * @return ArticleTranslationInterface
      */
     public function setMetaKeywords($metaKeywords);
@@ -80,6 +86,7 @@ interface ArticleTranslationInterface extends ResourceInterface, TranslationInte
 
     /**
      * @param string $metaDescription
+     *
      * @return ArticleTranslationInterface
      */
     public function setMetaDescription($metaDescription);

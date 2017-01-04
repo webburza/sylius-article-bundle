@@ -24,9 +24,10 @@ interface ArticleCategoryInterface extends ResourceInterface, TranslatableInterf
 
     /**
      * @param \DateTime $createdAt
+     *
      * @return ArticleCategoryInterface
      */
-    public function setCreatedAt($createdAt);
+    public function setCreatedAt(\DateTime $createdAt);
 
     /**
      * @return \DateTime
@@ -35,9 +36,10 @@ interface ArticleCategoryInterface extends ResourceInterface, TranslatableInterf
 
     /**
      * @param \DateTime $updatedAt
+     *
      * @return ArticleCategoryInterface
      */
-    public function setUpdatedAt($updatedAt);
+    public function setUpdatedAt(\DateTime $updatedAt);
 
     /**
      * @return boolean
@@ -46,6 +48,7 @@ interface ArticleCategoryInterface extends ResourceInterface, TranslatableInterf
 
     /**
      * @param boolean $published
+     *
      * @return ArticleCategoryInterface
      */
     public function setPublished($published);
@@ -57,13 +60,20 @@ interface ArticleCategoryInterface extends ResourceInterface, TranslatableInterf
 
     /**
      * @param $articles
+     *
      * @return ArticleCategoryInterface
      */
     public function setArticles($articles);
 
     /**
      * @param ArticleInterface $article
+     *
      * @return ArticleCategoryInterface
      */
     public function addArticle(ArticleInterface $article);
+
+    /**
+     * @return ArticleCategoryTranslationInterface
+     */
+    public function createTranslation();
 }

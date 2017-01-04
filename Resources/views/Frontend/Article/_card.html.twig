@@ -1,0 +1,22 @@
+<div class="column">
+    <div class="ui fluid card">
+        <a href="{{ path('webburza_article_frontend_show', {'slug': article.slug}) }}">
+            <img
+                src="{{ article.image ? (article.image.path | imagine_filter('webburza_article_thumbnail')) : 'https://placehold.it/260x260' }}"
+                alt="" class="ui bordered image"/>
+        </a>
+        <div class="content">
+            <a href="{{ path('webburza_article_frontend_show', {'slug': article.slug}) }}"
+               class="header">{{ article.title }}</a>
+            <div class="meta">
+                        <span class="date">
+                            <i class="clock icon"></i>
+                            {{ article.publishedAt | date }}
+                        </span>
+            </div>
+            <div class="description">
+                {{ (article.lead | slice(0, 100)) ~ (article.lead | length > 100 ? '...' : '') }}
+            </div>
+        </div>
+    </div>
+</div>

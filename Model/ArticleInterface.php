@@ -34,6 +34,7 @@ interface ArticleInterface extends ResourceInterface, TranslatableInterface
 
     /**
      * @param boolean $published
+     *
      * @return ArticleInterface
      */
     public function setPublished($published);
@@ -45,6 +46,7 @@ interface ArticleInterface extends ResourceInterface, TranslatableInterface
 
     /**
      * @param boolean $featured
+     *
      * @return ArticleInterface
      */
     public function setFeatured($featured);
@@ -56,9 +58,10 @@ interface ArticleInterface extends ResourceInterface, TranslatableInterface
 
     /**
      * @param \DateTime $publishedAt
+     *
      * @return ArticleInterface
      */
-    public function setPublishedAt($publishedAt);
+    public function setPublishedAt(\DateTime $publishedAt = null);
 
     /**
      * @return \DateTime
@@ -67,9 +70,10 @@ interface ArticleInterface extends ResourceInterface, TranslatableInterface
 
     /**
      * @param \DateTime $createdAt
+     *
      * @return ArticleInterface
      */
-    public function setCreatedAt($createdAt);
+    public function setCreatedAt(\DateTime $createdAt);
 
     /**
      * @return \DateTime
@@ -78,9 +82,10 @@ interface ArticleInterface extends ResourceInterface, TranslatableInterface
 
     /**
      * @param \DateTime $updatedAt
+     *
      * @return ArticleInterface
      */
-    public function setUpdatedAt($updatedAt);
+    public function setUpdatedAt(\DateTime $updatedAt);
 
     /**
      * @return ArticleImageInterface
@@ -89,6 +94,7 @@ interface ArticleInterface extends ResourceInterface, TranslatableInterface
 
     /**
      * @param ArticleImageInterface $image
+     *
      * @return ArticleInterface
      */
     public function setImage(ArticleImageInterface $image);
@@ -117,7 +123,13 @@ interface ArticleInterface extends ResourceInterface, TranslatableInterface
 
     /**
      * @param ArticleCategoryInterface $category
+     *
      * @return ArticleInterface
      */
     public function setCategory(ArticleCategoryInterface $category);
+
+    /**
+     * @return ArticleTranslationInterface
+     */
+    public function createTranslation();
 }

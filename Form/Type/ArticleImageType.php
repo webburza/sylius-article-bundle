@@ -3,18 +3,18 @@
 namespace Webburza\Sylius\ArticleBundle\Form\Type;
 
 use Sylius\Bundle\CoreBundle\Form\Type\ImageType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleImageType extends ImageType
+final class ArticleImageType extends ImageType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', 'file', [
-            'label' => 'webburza.sylius.article.label.file',
-            'property_path' => 'file'
+        $builder->add('file', FileType::class, [
+            'label'         => 'webburza.sylius.article.label.file'
         ]);
     }
 

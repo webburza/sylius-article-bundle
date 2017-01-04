@@ -1,0 +1,74 @@
+sylius_grid:
+    grids:
+        webburza_article_admin:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%webburza_article.model.article.class%"
+                    repository:
+                        method: createListQueryBuilder
+                        arguments: ["%locale%"]
+            fields:
+                id:
+                    type: string
+                    label: webburza_article.article.label.id
+                    sortable: ~
+                title:
+                    type: twig
+                    label: webburza_article.article.label.title
+                    sortable: translation.title
+                    path: .
+                    options:
+                        template: "WebburzaSyliusArticleBundle:Backend/Article:_gridTitle.html.twig"
+                coverImage:
+                    type: twig
+                    label: webburza_article.article.label.cover_image
+                    path: .
+                    options:
+                        template: "WebburzaSyliusArticleBundle:Backend/Article:_gridImage.html.twig"
+                published:
+                    type: twig
+                    label: webburza_article.article_category.label.published
+                    sortable: ~
+                    options:
+                        template: SyliusUiBundle:Grid/Field:yesNo.html.twig
+                publishedAt:
+                    type: datetime
+                    label: webburza_article.article.label.published_at
+                    sortable: ~
+                    options:
+                        format: 'd-m-Y H:i'
+                createdAt:
+                    type: datetime
+                    label: webburza_article.article.label.created_at
+                    sortable: ~
+                    options:
+                        format: 'd-m-Y H:i'
+                updatedAt:
+                    type: datetime
+                    label: webburza_article.article.label.updated_at
+                    sortable: ~
+                    options:
+                        format: 'd-m-Y H:i'
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                text:
+                    type: string
+                    label: webburza_article.article.label.title
+                    options:
+                        fields: [translation.title, translation.lead, translation.content]
+                published:
+                    type: boolean
+                    label: webburza_article.article.label.published
+            sorting:
+                published: asc
+                publishedAt: desc
+                createdAt: desc

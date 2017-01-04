@@ -3,51 +3,58 @@
 namespace Webburza\Sylius\ArticleBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use Sylius\Component\Resource\ResourceActions;
 use Symfony\Component\HttpFoundation\Request;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
 use Webburza\Sylius\ArticleBundle\Model\ArticleControllerInterface;
-use Webburza\Sylius\ArticleBundle\Model\ArticleRepositoryInterface;
+use Webburza\Sylius\ArticleBundle\Repository\ArticleRepositoryInterface;
 
 class ArticleController extends ResourceController implements ArticleControllerInterface
 {
     /**
+     * @var ArticleRepositoryInterface
+     */
+    protected $repository;
+
+    /**
      * Show publicly visible articles for the current locale.
      *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexFrontAction(Request $request)
     {
-        // Get current locale
-        $locale = $this->get('sylius.context.locale')->getCurrentLocale();
-
         // Get request configuration
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
-        /** @var ArticleRepositoryInterface $repository */
-        $repository = $this->repository;
+        // Get the category if this is index by category
+        $category = $this->getCategoryFromRequest($request);
 
         // Get a paginator for publicly visible articles for locale
-        $articlesPaginator = $repository->getPublicPaginatorForLocale($locale);
-        $articlesPaginator->setCurrentPage($this->get('request')->get('page', 1), true, true);
-        $articlesPaginator->setMaxPerPage($configuration->getPaginationMaxPerPage());
+        $articles = $this->repository->getPublicPaginatorForLocale($request->getLocale(), $category);
+        $articles->setMaxPerPage($configuration->getPaginationMaxPerPage());
+        $articles->setCurrentPage($request->get('page', 1));
 
         // Get categories for listing
-        $categories = $this->get('webburza.repository.article_category')->findBy([
-            'published' => true
+        $categories = $this->get('webburza_article.repository.article_category')->findPublic([
+            'translation.title' => 'asc'
         ]);
 
-        // Create the view
-        $view = View::create();
+        $view = View::create($articles);
 
-        // Set template and data
-        $view->setTemplate('WebburzaSyliusArticleBundle:Frontend/Article:index.html.twig');
-        $view->setData(array(
-            'articles' => $articlesPaginator,
-            'categories' => $categories
-        ));
+        if ($configuration->isHtmlRequest()) {
+            $view
+                ->setTemplate('WebburzaSyliusArticleBundle:Frontend/Article:index.html.twig')
+                ->setTemplateVar($this->metadata->getPluralName())
+                ->setData([
+                    'articles'   => $articles,
+                    'categories' => $categories,
+                    'category'   => $category
+                ]);
+        }
 
-        // Handle view
         return $this->viewHandler->handle($configuration, $view);
     }
 
@@ -56,49 +63,60 @@ class ArticleController extends ResourceController implements ArticleControllerI
      *
      * @param Request $request
      * @param $slug
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showFrontAction(Request $request, $slug)
     {
-        // Get current locale
-        $locale = $this->get('sylius.context.locale')->getCurrentLocale();
-
         // Get request configuration
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
-        /** @var ArticleRepositoryInterface $repository */
-        $repository = $this->repository;
-
         // Get a publicly visible article by translated slug
-        $article = $repository->findPublicBySlug($slug, $locale);
+        $article = $this->repository->findPublicBySlug($slug, $request->getLocale());
 
         if (!$article) {
             throw $this->createNotFoundException();
         }
 
         // Get categories for listing
-        $categories = $this->get('webburza.repository.article_category')->findBy([
+        $categories = $this->get('webburza_article.repository.article_category')->findBy([
             'published' => true
         ]);
 
         // Get related articles
         $relatedArticles =
-            $this
-                ->get('webburza.repository.article')
-                ->getRelatedArticles($article, $locale, 3);
+            $this->get('webburza_article.repository.article')
+                 ->getRelatedArticles($article, $request->getLocale(), 4);
 
-        // Create the view
-        $view = View::create();
+        $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $article);
 
-        // Set template and data
-        $view->setTemplate('WebburzaSyliusArticleBundle:Frontend/Article:show.html.twig');
-        $view->setData(array(
-            'article' => $article,
-            'categories' => $categories,
-            'related_articles' => $relatedArticles
-        ));
+        $view = View::create($article);
+        if ($configuration->isHtmlRequest()) {
+            $view
+                ->setTemplate('WebburzaSyliusArticleBundle:Frontend/Article:show.html.twig')
+                ->setData([
+                    'article'         => $article,
+                    'categories'      => $categories,
+                    'relatedArticles' => $relatedArticles
+                ]);
+        }
 
-        // Handle view
         return $this->viewHandler->handle($configuration, $view);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return ArticleCategoryInterface
+     */
+    protected function getCategoryFromRequest(Request $request)
+    {
+        if ($request->get('categorySlug')) {
+            return $this->get('webburza_article.repository.article_category')->findPublicBySlug(
+                $request->get('categorySlug'), $request->getLocale()
+            );
+        }
+
+        return null;
     }
 }

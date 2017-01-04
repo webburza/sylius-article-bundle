@@ -5,11 +5,12 @@ namespace Webburza\Sylius\ArticleBundle\Form\Type;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ObjectChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
 
-class ArticleCategoryChoiceType extends AbstractType
+final class ArticleCategoryChoiceType extends AbstractType
 {
     /**
      * @var RepositoryInterface
@@ -41,15 +42,14 @@ class ArticleCategoryChoiceType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $choiceList = new ObjectChoiceList($this->repository->findAll(), 'title', [], null, 'id');
-
         $resolver
             ->setDefaults([
-                'choice_list' => $choiceList,
-                'label' => 'webburza.sylius.article.label.category',
-                'empty_value' => 'webburza.sylius.article.label.choose_category'
-            ])
-        ;
+                'choices'      => $this->repository->findAll(),
+                'choice_label' => function (ArticleCategoryInterface $category) {
+                    return $category->getTitle();
+                },
+                'label'        => 'webburza_article.article.label.category'
+            ]);
     }
 
     /**
@@ -57,7 +57,7 @@ class ArticleCategoryChoiceType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 
     /**

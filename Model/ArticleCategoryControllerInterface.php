@@ -12,6 +12,7 @@ interface ArticleCategoryControllerInterface extends ContainerAwareInterface
      *
      * @param Request $request
      * @param $slug
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showFrontAction(Request $request, $slug);

@@ -3,61 +3,65 @@
 namespace Webburza\Sylius\ArticleBundle\Form\Type;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Symfony\Component\Form\Extension\Core\Type;
+use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Valid;
 
-class ArticleType extends AbstractResourceType
+final class ArticleType extends AbstractResourceType
 {
     /**
-     * Build the Article form
-     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('translations', 'sylius_translations', [
-            'type' => 'webburza_article_translation',
-            'label' => 'webburza.sylius.article.translations',
+        $builder->add('translations', ResourceTranslationsType::class, [
+            'entry_type'  => ArticleTranslationType::class,
+            'label'       => 'webburza_article.article.translations',
             'constraints' => [
                 new Valid()
             ]
         ]);
 
-        $builder->add('image', 'webburza_article_image', [
-            'label' => 'webburza.sylius.article.label.cover_image'
+        $builder->add('image', ArticleImageType::class, [
+            'label' => 'webburza_article.article.label.cover_image'
         ]);
 
-        $builder->add('category', 'webburza_article_category_choice', [
-            'label' => 'webburza.sylius.article.label.category'
+        $builder->add('category', ArticleCategoryChoiceType::class, [
+            'label' => 'webburza_article.article.label.category',
+            'required' => false
         ]);
 
-        $builder->add('products', 'webburza_article_product_choice', [
-            'label' => 'webburza.sylius.article.label.products',
-            'attr' => [
+        $builder->add('products', ProductChoiceType::class, [
+            'label'    => 'webburza_article.article.label.products',
+            'attr'     => [
                 'size' => 10
             ],
-            'multiple' => true
+            'multiple' => true,
+            'required' => false
         ]);
 
-        $builder->add('publishedAt', 'datetime', [
-            'label' => 'webburza.sylius.article.label.published_at',
-            'required' => false,
-            'date_format' => 'y-M-d',
-            'date_widget' => 'choice',
-            'time_widget' => 'text'
+        $builder->add('featured', CheckboxType::class, [
+            'label' => 'webburza_article.article.label.featured'
         ]);
 
-        $builder->add('published', 'checkbox', [
-            'label' => 'webburza.sylius.article.label.published'
+        $builder->add('published', CheckboxType::class, [
+            'label' => 'webburza_article.article.label.published'
         ]);
 
-        $builder->add('featured', 'checkbox', [
-            'label' => 'webburza.sylius.article.label.featured'
+        $builder->add('publishedAt', DateTimeType::class, [
+            'label'    => 'webburza_article.article.label.published_at',
+            'date_widget' => 'single_text',
+            'time_widget' => 'single_text',
+            'required' => false
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'webburza_article';

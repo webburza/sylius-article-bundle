@@ -1,0 +1,85 @@
+{% form_theme form with ['@SyliusUi/Form/theme.html.twig', _self] %}
+
+<div class="ui segment">
+    {{ form_errors(form) }}
+
+    <div class="ui two column stackable grid">
+        <div class="column">
+            <div class="ui styled fluid accordion">
+                {% for locale, translationForm in form.translations %}
+                    <div data-locale="{{ locale }}">
+                        <div class="title{% if 0 == loop.index0 %} active{% endif %}">
+                            <i class="dropdown icon"></i>
+                            <i class="{{ locale|slice(3, 2)|lower }} flag"></i> {{ locale|sylius_locale_name }}
+                        </div>
+                        <div class="content{% if 0 == loop.index0 %} active{% endif %}">
+                            {{ form_rest(translationForm) }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="field">
+                {{ form_label(form.image) }}
+
+                <div>
+                    {% if form.vars.data.image and form.vars.data.image.path %}
+                        <p class="cover-image-preview" data-id="{{ form.vars.data.image.id }}">
+                            <img class="ui bordered image" src="{{ form.vars.data.image.path | imagine_filter('sylius_medium') }}" />
+                        </p>
+                    {% endif %}
+
+                    <label for="{{ form.image.vars.id }}_file" class="ui labeled icon button">
+                        <i class="cloud upload icon"></i>
+                        {{ (form.vars.data.image ? 'sylius.ui.change_file' : 'sylius.ui.choose_file') | trans }}
+                    </label>
+
+                    <div class="ui hidden element">
+                        {{ form_widget(form.image) }}
+                    </div>
+
+                    {% if form.vars.data.image %}
+                        <button class="ui red labeled icon button" onclick="removePreview(this)" data-id="{{ form.vars.data.image.id }}">
+                            <i class="trash icon"></i>
+                            {{ 'sylius.ui.delete' | trans }}
+                        </button>
+
+                        {{ form_widget(form.imageRemove) }}
+                    {% endif %}
+                </div>
+            </div>
+
+            {{ form_row(form.category) }}
+            {{ form_row(form.products) }}
+            {{ form_row(form.featured) }}
+            {{ form_row(form.published) }}
+            {{ form_row(form.publishedAt) }}
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.ckeditor.com/4.5.0/standard/ckeditor.js"></script>
+
+<script type="text/javascript">
+    function removePreview(elem) {
+        elem.parentNode.removeChild(elem);
+
+        var previewElement = document.querySelectorAll('.cover-image-preview')[0];
+        previewElement.parentNode.removeChild(previewElement);
+
+        document.getElementById('article_imageRemove').value = 1
+    }
+
+    {% if app.request.get('browseUrl') and app.request.get('uploadUrl') %}
+        var editors = document.querySelectorAll('.ckeditor');
+
+        for (i = 0; i < editors.length; i++) {
+            CKEDITOR.replace(editors[i].getAttribute('id'), {
+                filebrowserBrowseUrl: "{{ app.request.get('browseUrl') }}",
+                filebrowserUploadUrl: "{{ app.request.get('uploadUrl') }}"
+            });
+        }
+    {% endif %}
+</script>

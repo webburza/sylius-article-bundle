@@ -2,14 +2,15 @@
 
 namespace Webburza\Sylius\ArticleBundle\Form\Type;
 
+use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ObjectChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductChoiceType extends AbstractType
+final class ProductChoiceType extends AbstractType
 {
     /**
      * @var RepositoryInterface
@@ -41,15 +42,14 @@ class ProductChoiceType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $choiceList = new ObjectChoiceList($this->repository->findAll(), 'name', [], null, 'id');
-
         $resolver
             ->setDefaults([
-                'choice_list' => $choiceList,
-                'label' => 'webburza.sylius.article.label.products',
-                'empty_value' => 'webburza.sylius.article.label.choose_products'
-            ])
-        ;
+                'choices'     => $this->repository->findAll(),
+                'choice_label' => function(ProductInterface $product) {
+                    return $product->getName();
+                },
+                'label'       => 'webburza_article.article.label.products'
+            ]);
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductChoiceType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 
     /**

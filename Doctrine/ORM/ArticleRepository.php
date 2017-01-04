@@ -2,13 +2,33 @@
 
 namespace Webburza\Sylius\ArticleBundle\Doctrine\ORM;
 
+use Doctrine\ORM\QueryBuilder;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Webburza\Sylius\ArticleBundle\Model\ArticleCategoryInterface;
 use Webburza\Sylius\ArticleBundle\Model\ArticleInterface;
-use Webburza\Sylius\ArticleBundle\Model\ArticleRepositoryInterface;
+use Webburza\Sylius\ArticleBundle\Repository\ArticleRepositoryInterface;
 
 class ArticleRepository extends EntityRepository implements ArticleRepositoryInterface
 {
+    /**
+     * @param string $locale
+     *
+     * @return QueryBuilder
+     */
+    public function createListQueryBuilder($locale)
+    {
+        $queryBuilder = $this->createQueryBuilder('o');
+
+        $queryBuilder
+            ->addSelect('translation')
+            ->leftJoin('o.translations', 'translation')
+            ->andWhere('translation.locale = :locale')
+            ->setParameter('locale', $locale)
+        ;
+
+        return $queryBuilder;
+    }
+
     /**
      * Get publicly visible articles
      *
@@ -27,7 +47,7 @@ class ArticleRepository extends EntityRepository implements ArticleRepositoryInt
             ->andWhere('t.locale = :locale')
             ->andWhere('a.published = true')
             ->andWhere('t.active = true')
-            ->andWhere('c IS NULL OR c.published = true');
+            ->andWhere('c.id IS NULL OR c.published = true');
 
         $queryBuilder->setParameters([
             ':locale' => $locale
@@ -64,7 +84,7 @@ class ArticleRepository extends EntityRepository implements ArticleRepositoryInt
             ->andWhere('t.locale = :locale')
             ->andWhere('a.published = true')
             ->andWhere('t.active = true')
-            ->andWhere('c IS NULL OR c.published = true')
+            ->andWhere('c.id IS NULL OR c.published = true')
             ->andWhere('a.id != :currentArticleId');
 
         $queryBuilder->setParameters([
@@ -86,25 +106,26 @@ class ArticleRepository extends EntityRepository implements ArticleRepositoryInt
     }
 
     /**
-     * Find a publicly visible article by a slug, for the provided locale.
+     * Find an article by a slug, for the provided locale.
      *
      * @param $slug
      * @param $locale
      *
-     * @return ArticleInterface|null
+     * @return null|ArticleInterface
      */
     public function findPublicBySlug($slug, $locale)
     {
         $queryBuilder = $this->createQueryBuilder('a');
-        $queryBuilder->leftJoin('a.translations', 't');
+        $queryBuilder->innerJoin('a.translations', 't');
         $queryBuilder->leftJoin('a.category', 'c');
 
         $queryBuilder
             ->andWhere('t.slug = :slug')
             ->andWhere('t.locale = :locale')
-            ->andWhere('a.published = true')
-            ->andWhere('t.active = true')
-            ->andWhere('c IS NULL OR c.published = true');
+            ->andWhere('t.active = true');
+
+        $queryBuilder->andWhere('a.published = true');
+        $queryBuilder->andWhere('c.id IS NULL OR c.published = true');
 
         $queryBuilder->setParameters([
             ':slug' => $slug,

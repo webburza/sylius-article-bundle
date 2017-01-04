@@ -1,29 +1,54 @@
-{% extends 'SyliusWebBundle:Frontend:layout.html.twig' %}
+{% extends '@SyliusShop/layout.html.twig' %}
 
-{% import 'WebburzaSyliusArticleBundle:Frontend/Article:macros.html.twig' as macro %}
-
-{% block title %}{{ 'webburza.sylius.article.index_header' | trans }}{% endblock %}
+{% import '@SyliusUi/Macro/pagination.html.twig' as pagination %}
+{% import 'SyliusUiBundle:Macro:messages.html.twig' as messages %}
 
 {% block content %}
-<div class="page-header">
-    <h1 class="page-title">{{ 'webburza.sylius.article.index_header' | trans }}</h1>
-</div>
+    <div class="ui breadcrumb">
+        <a href="{{ path('sylius_shop_homepage') }}" class="section">{{ 'sylius.ui.home'|trans }}</a>
+        <div class="divider">/</div>
 
-{% if articles.haveToPaginate() %}
-    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
-{% endif %}
-
-<div class="row">
-    <div class="col-md-9">
-        {{ macro.list(articles) }}
+        {% if category %}
+            <a href="{{ path('webburza_article_frontend_index') }}" class="section">{{ 'webburza_article.ui.articles'|trans }}</a>
+            <div class="divider">/</div>
+            <div class="active section">{{ category.title }}</div>
+        {% else %}
+            <div class="active section">{{ 'webburza_article.ui.articles'|trans }}</div>
+        {% endif %}
     </div>
 
-{% if categories is not empty %}
-    {{ macro.articleSidebar(categories) }}
-{% endif %}
-</div>
+    <h1 class="ui monster section dividing header">
+        {{ 'webburza_article.ui.articles' | trans }}
+    </h1>
 
-{% if articles.haveToPaginate() %}
-    {{ pagerfanta(articles, 'twitter_bootstrap3_translated') }}
-{% endif %}
+    <div class="ui stackable grid">
+        <div class="four wide column">
+            {% if categories | length %}
+                <div class="ui fluid vertical menu">
+                    {% for _category in categories %}
+                        <a href="{{ path('webburza_article_frontend_index_by_category', {categorySlug: _category.slug}) }}" class="item">
+                            {% if category is defined and category and category.id == _category.id %}
+                                <strong>{{ _category.title }}</strong>
+                            {% else %}
+                                {{ _category.title }}
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="twelve wide column">
+            {% if articles | length > 0 %}
+                <div class="ui three column stackable grid" id="products">
+                    {% for article in articles %}
+                        {% include 'WebburzaSyliusArticleBundle:Frontend/Article:_card.html.twig' %}
+                    {% endfor %}
+                </div>
+                <div class="ui hidden divider"></div>
+                {{ pagination.simple(articles) }}
+            {% else %}
+                {{ messages.info('sylius.ui.no_results_to_display'|trans) }}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

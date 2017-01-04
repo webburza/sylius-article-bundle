@@ -14,6 +14,7 @@ interface ArticleCategoryTranslationInterface extends ResourceInterface, Transla
 
     /**
      * @param string $title
+     *
      * @return ArticleCategoryTranslationInterface
      */
     public function setTitle($title);
@@ -25,6 +26,7 @@ interface ArticleCategoryTranslationInterface extends ResourceInterface, Transla
 
     /**
      * @param string $slug
+     *
      * @return ArticleCategoryTranslationInterface
      */
     public function setSlug($slug);

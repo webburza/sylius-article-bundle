@@ -1,82 +1,54 @@
 <?php
 
-namespace Webburza\Sylius\ArticleBundle\Entity;
+namespace Webburza\Sylius\ArticleBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\AbstractTranslation;
 use Symfony\Component\Validator\Constraints as Assert;
-use Webburza\Sylius\ArticleBundle\Model\ArticleTranslationInterface;
 use Webburza\Sylius\ArticleBundle\Validator\Constraints;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * ArticleTranslation
- *
- * @ORM\Table(name="webburza_sylius_article_translation")
- * @ORM\Entity()
- */
 class ArticleTranslation extends AbstractTranslation implements ArticleTranslationInterface
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      * @Constraints\NotBlankIfActive()
      */
     protected $title;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
-     * @Gedmo\Slug(fields={"title"}, unique_base="locale")
      */
     protected $slug;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="lead", type="text", nullable=true)
      */
     protected $lead;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="content", type="text", nullable=true)
      * @Constraints\NotBlankIfActive()
      */
     protected $content;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="meta_keywords", type="text", nullable=true)
      */
     protected $metaKeywords;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="meta_description", type="text", nullable=true)
      */
     protected $metaDescription;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="active", type="boolean")
      */
-    protected $active;
+    protected $active = true;
 
     /**
      * @return int
@@ -96,6 +68,7 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     /**
      * @param string $title
+     *
      * @return ArticleTranslationInterface
      */
     public function setTitle($title)
@@ -115,6 +88,7 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     /**
      * @param string $slug
+     *
      * @return ArticleTranslationInterface
      */
     public function setSlug($slug)
@@ -134,6 +108,7 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     /**
      * @param string $lead
+     *
      * @return ArticleTranslationInterface
      */
     public function setLead($lead)
@@ -153,6 +128,7 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     /**
      * @param string $content
+     *
      * @return ArticleTranslationInterface
      */
     public function setContent($content)
@@ -172,6 +148,7 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     /**
      * @param boolean $active
+     *
      * @return ArticleTranslationInterface
      */
     public function setActive($active)
@@ -191,6 +168,7 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     /**
      * @param string $metaKeywords
+     *
      * @return ArticleTranslationInterface
      */
     public function setMetaKeywords($metaKeywords)
@@ -210,6 +188,7 @@ class ArticleTranslation extends AbstractTranslation implements ArticleTranslati
 
     /**
      * @param string $metaDescription
+     *
      * @return ArticleTranslationInterface
      */
     public function setMetaDescription($metaDescription)
