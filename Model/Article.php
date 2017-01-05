@@ -28,12 +28,12 @@ class Article implements ArticleInterface
     /**
      * @var boolean
      */
-    protected $published;
+    protected $published = false;
 
     /**
      * @var boolean
      */
-    protected $featured;
+    protected $featured = false;
 
     /**
      * @var \DateTime
