@@ -5,6 +5,7 @@ namespace Webburza\Sylius\ArticleBundle\Form\Type;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class ArticleCategoryType extends AbstractResourceType
@@ -18,6 +19,11 @@ final class ArticleCategoryType extends AbstractResourceType
         $builder->add('translations', ResourceTranslationsType::class, [
             'entry_type'  => ArticleCategoryTranslationType::class,
             'label' => 'webburza_article.article_category.translations'
+        ]);
+
+        $builder->add('code', TextType::class, [
+            'label' => 'webburza_article.article_category.label.code',
+            'required' => false
         ]);
 
         $builder->add('published', CheckboxType::class, [

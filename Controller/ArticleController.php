@@ -30,7 +30,9 @@ class ArticleController extends ResourceController implements ArticleControllerI
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
         // Get the category if this is index by category
-        $category = $this->getCategoryFromRequest($request);
+        if (false === ($category = $this->getCategoryFromRequest($request))) {
+            throw $this->createNotFoundException();
+        }
 
         // Get a paginator for publicly visible articles for locale
         $articles = $this->repository->getPublicPaginatorForLocale($request->getLocale(), $category);
@@ -107,14 +109,16 @@ class ArticleController extends ResourceController implements ArticleControllerI
     /**
      * @param Request $request
      *
-     * @return ArticleCategoryInterface
+     * @return ArticleCategoryInterface|bool
      */
     protected function getCategoryFromRequest(Request $request)
     {
         if ($request->get('categorySlug')) {
-            return $this->get('webburza_article.repository.article_category')->findPublicBySlug(
+            $category = $this->get('webburza_article.repository.article_category')->findPublicBySlug(
                 $request->get('categorySlug'), $request->getLocale()
             );
+
+            return $category ?: false;
         }
 
         return null;

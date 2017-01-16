@@ -42,6 +42,18 @@ interface ArticleCategoryInterface extends ResourceInterface, TranslatableInterf
     public function setUpdatedAt(\DateTime $updatedAt);
 
     /**
+     * @return string
+     */
+    public function getCode();
+
+    /**
+     * @param string $code
+     *
+     * @return ArticleCategoryInterface
+     */
+    public function setCode($code);
+
+    /**
      * @return boolean
      */
     public function isPublished();
