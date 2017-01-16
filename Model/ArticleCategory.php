@@ -21,6 +21,11 @@ class ArticleCategory implements ArticleCategoryInterface
     protected $id;
 
     /**
+     * @var string
+     */
+    protected $code;
+
+    /**
      * @var boolean
      */
     protected $published;
@@ -62,6 +67,26 @@ class ArticleCategory implements ArticleCategoryInterface
     public function getSlug()
     {
         return $this->getTranslation()->getSlug();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return ArticleCategoryInterface
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     /**

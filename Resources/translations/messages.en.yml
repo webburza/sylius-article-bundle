@@ -33,6 +33,7 @@ webburza_article:
     article_category:
         label:
             id: Id
+            code: Code
             title: Title
             published: Published?
             created_at: Created At
